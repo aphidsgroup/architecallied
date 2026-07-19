@@ -42,3 +42,12 @@ next-env.d.ts
 
 # local pnpm store (accidental install artefact)
 .pnpm-store/
+
+# workspace-only files (source discovery material, not deployable source)
+/pptx_client_images/
+/pptx_extracted_images/
+/source-assets/
+add_mobbin_mcp.bat
+*.pptx
+"ARCHITEC ALLIED LOGO.png"
+"ARCHITEC ALLIED LOGO C1.png"

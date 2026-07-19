@@ -68,7 +68,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${jost.variable} ${fraunces.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${jost.variable} ${fraunces.variable}`}>
       <body>
         <a href="#main" className="skip-link label">
           Skip to content

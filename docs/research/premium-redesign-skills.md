@@ -1,0 +1,14 @@
+# Skill evidence — premium redesign
+
+Network status this session: Mobbin MCP connected and used (see premium-reference-matrix.md). The eight skill repository URLs remain unreachable from the sandbox (GitHub raw / skills.sh blocked by network allowlist) — their files could not be read this session either. Their mandated intents were applied from the brief's own precedence description; evidence below records what was actually done, per skill role.
+
+| Skill role | Instruction applied | Visible decision produced | Where | Deliberately rejected | Why |
+|---|---|---|---|---|---|
+| Frontend Design (originality) | No template hero (headline+para+2 buttons); authored compositions per section | Staggered Fraunces wordmark hero; corner coordinates; index-as-navigation | Direction A hero/index | Card grids for content sections | Brief forbids "all sections as cards"; kills editorial character |
+| Premium Frontend UI (cinematic craft) | Choreographed reveals; clip-path planes; one pinned sequence max | Direction C pinned plane narrative with datum progress rail | direction-c/spatial-sequence.tsx | Preloader, custom cursor, WebGL, parallax | Explicitly forbidden; performance + accessibility cost |
+| Minimalist UI (restraint) | Cap accents; whitespace as material | ≤2 gold elements per viewport; A's near-empty header | All directions | Decorative gold overlays/textures | "Luxury cliché" risk named in brief |
+| GSAP skills (choreography) | useGSAP scope; matchMedia gating; revert on cleanup; scrub over listeners | C's single matchMedia'd pinned timeline; B uses CSS-only transitions | spatial-sequence.tsx, archive-index.tsx | ScrollTrigger on every section | Unbounded instances forbidden; only C's sequence justifies GSAP |
+| UI UX Pro Max (system validation) | State parity: hover=focus=touch | B's index activates on hover AND focus AND click; inline mobile stage | archive-index.tsx | Hover-only preview stage | Touch users would lose the core interaction |
+| Shadcn/Radix (accessible behaviour) | Dialog primitives for modal nav | A's full-screen index menu: focus trap, Escape, focus return | lab-nav-a.tsx | Hand-rolled menu div | Re-implementing focus management is regression risk |
+| Industrial Brutalist (structural character) | Exposed grid lines, oversized indices, thin datum rules, sharp geometry | B's ruled index rows + ghost numerals; C's plane geometry | B, C | CRT/neon/ASCII/noise/dark-only | Forbidden by brief; hostile to the brand |
+| Frontend UI UX (implementation discipline) | Inspect-first; verify by screenshot; fail-visible | All directions screenshot-verified; C's sequence readable with JS disabled; type-check/lint/build clean before capture | this document + docs/redesign/ | Shipping unverified states | Screenshots are the binding deliverable of this phase |

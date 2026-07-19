@@ -70,7 +70,7 @@ export function Footer() {
             alt="archi-tec allied"
             width={120}
             height={60}
-            className="h-10 w-auto"
+            className="h-10 w-auto object-contain object-left"
           />
           <p className="text-xs uppercase tracking-[0.2em] text-beige-muted">
             Principal Architect — {site.principal.name}, {site.principal.qualification} · ©{" "}

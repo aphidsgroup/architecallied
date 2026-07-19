@@ -9,7 +9,7 @@ Editorial-minimal architecture-practice website for **archi-tec allied** (Archi-
 - Radix UI primitives (shadcn-style components vendored in `src/components/ui/` — see `docs/research/skills-used.md`)
 - Jost (SIL OFL) self-hosted via `next/font/local` from `src/fonts/`
 - Vitest (unit + fixture/sitemap-exclusion tests)
-- pnpm 11
+- pnpm 10.11.0 (pinned via `packageManager` in package.json)
 
 ## Commands
 ```bash

@@ -1,109 +1,142 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MenuIcon } from "lucide-react";
-import { nav, site } from "@/content/site";
+import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { site } from "@/content/site";
 import { cn } from "@/lib/utils";
-import { Logo } from "./logo";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetTitle,
-  SheetTrigger,
-  SheetClose,
-} from "@/components/ui/sheet";
+
+/**
+ * Direction A navigation (selected 2026-07-20): a near-invisible header —
+ * monogram left, "Index" trigger right — opening a full-screen indexed menu
+ * with monumental Fraunces destinations and an office/contact utility rail.
+ * Radix Dialog provides focus trap, Escape-close and focus return; without
+ * JS the header links (logo → home) and footer nav keep every route
+ * reachable. One component serves desktop and mobile.
+ */
+const DEST = [
+  { n: "01", label: "Projects", href: "/projects" },
+  { n: "02", label: "Expertise", href: "/expertise" },
+  { n: "03", label: "Practice", href: "/about" },
+  { n: "04", label: "Contact", href: "/contact" },
+] as const;
 
 export function Header() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const onDark = pathname === "/";
 
   return (
-    <header
-      className={cn(
-        "absolute inset-x-0 top-0 z-40",
-        onDark ? "surface-dark" : "border-b rule bg-white",
-      )}
-    >
-      <div className="mx-auto flex h-20 max-w-[1360px] items-center justify-between px-4 md:px-6">
-        <Link
-          href="/"
-          aria-label={`${site.name} — home`}
-          className="inline-flex items-center"
-        >
-          <Logo variant={onDark ? "onDark" : "onLight"} />
-        </Link>
-
-        {/* Desktop nav */}
-        <nav aria-label="Primary" className="hidden md:block">
-          <ul className="flex items-center gap-10">
-            {nav.map((item) => {
-              const active = pathname.startsWith(item.href);
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "label inline-flex min-h-11 items-center underline-offset-8 transition-colors",
-                      onDark
-                        ? "text-beige hover:text-white"
-                        : "text-navy hover:text-ink-muted",
-                      active && "underline decoration-gold decoration-2",
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-
-        {/* Mobile nav */}
-        <Sheet>
-          <SheetTrigger
-            className={cn(
-              "inline-flex size-11 items-center justify-center md:hidden",
-              onDark ? "text-beige" : "text-navy",
-            )}
-            aria-label="Open menu"
+    <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
+      <header
+        className={cn(
+          "absolute inset-x-0 top-0 z-40",
+          onDark ? "surface-dark" : "border-b rule bg-white",
+        )}
+      >
+        <div className="flex items-center justify-between px-6 py-5 md:px-10">
+          <Link
+            href="/"
+            aria-label={`${site.name} — home`}
+            className="flex items-center gap-3"
           >
-            <MenuIcon aria-hidden className="size-6" />
-          </SheetTrigger>
-          <SheetContent aria-describedby={undefined}>
-            <SheetTitle className="label text-beige-muted">Menu</SheetTitle>
-            <SheetDescription className="sr-only">
-              Site navigation
-            </SheetDescription>
-            <nav aria-label="Mobile" className="mt-10">
-              <ul className="flex flex-col gap-2">
-                {nav.map((item) => (
-                  <li key={item.href}>
-                    <SheetClose asChild>
+            <Image
+              src={onDark ? "/brand/logo-gold.png" : "/brand/logo-black.png"}
+              alt=""
+              width={64}
+              height={32}
+              priority
+              className="h-7 w-auto"
+            />
+            <span
+              className={cn(
+                "text-lg lowercase leading-none tracking-wide",
+                onDark ? "text-beige" : "text-navy",
+              )}
+            >
+              {site.displayName}
+            </span>
+          </Link>
+          <DialogPrimitive.Trigger
+            className={cn(
+              "label flex min-h-11 items-center gap-3",
+              onDark ? "text-beige hover:text-gold" : "text-navy hover:text-gold-ink",
+            )}
+          >
+            Index
+            <span aria-hidden className="block h-px w-10 bg-gold" />
+          </DialogPrimitive.Trigger>
+        </div>
+      </header>
+
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-navy" />
+        <DialogPrimitive.Content className="surface-dark fixed inset-0 z-50 overflow-y-auto bg-navy focus:outline-none">
+          <DialogPrimitive.Title className="sr-only">
+            Site index
+          </DialogPrimitive.Title>
+          <DialogPrimitive.Description className="sr-only">
+            Full-screen navigation. Press Escape to close.
+          </DialogPrimitive.Description>
+
+          <div className="flex min-h-svh flex-col px-6 py-5 md:px-10">
+            <div className="flex items-center justify-between">
+              <Image
+                src="/brand/logo-gold.png"
+                alt="archi-tec allied"
+                width={64}
+                height={32}
+                className="h-7 w-auto"
+              />
+              <DialogPrimitive.Close className="label flex min-h-11 items-center gap-3 text-beige hover:text-gold">
+                Close
+                <span aria-hidden className="block h-px w-10 bg-gold" />
+              </DialogPrimitive.Close>
+            </div>
+
+            <nav aria-label="Primary" className="my-auto py-12">
+              <ol>
+                {DEST.map(({ n, label, href }) => {
+                  const active = pathname.startsWith(href);
+                  return (
+                    <li key={href} className="group border-b border-beige/10">
                       <Link
-                        href={item.href}
-                        aria-current={
-                          pathname.startsWith(item.href) ? "page" : undefined
-                        }
-                        className="flex min-h-12 items-center border-b rule text-2xl font-light text-cream hover:text-gold"
+                        href={href}
+                        onClick={() => setOpen(false)}
+                        aria-current={active ? "page" : undefined}
+                        className="flex items-baseline gap-6 py-4 md:gap-10 md:py-6"
                       >
-                        {item.label}
+                        <span className="label w-8 text-gold">{n}</span>
+                        <span
+                          className={cn(
+                            "font-display text-[clamp(2.5rem,8vw,6.5rem)] font-light leading-none transition-transform duration-300 group-hover:translate-x-4 group-hover:text-gold motion-reduce:transition-none",
+                            active ? "italic text-gold" : "text-cream",
+                          )}
+                        >
+                          {label}
+                        </span>
                       </Link>
-                    </SheetClose>
-                  </li>
-                ))}
-              </ul>
+                    </li>
+                  );
+                })}
+              </ol>
             </nav>
-            <p className="mt-auto text-sm text-beige-muted">
-              <a className="hover:text-beige" href={`mailto:${site.email}`}>
+
+            <div className="grid gap-6 border-t border-beige/10 pt-6 text-sm text-beige-muted md:grid-cols-3">
+              <p>Head Office — T. Nagar, Chennai</p>
+              <p>Branch — Bhubaneswar, Odisha</p>
+              <a
+                href={`mailto:${site.email}`}
+                className="hover:text-gold md:text-right"
+              >
                 {site.email}
               </a>
-            </p>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </header>
+            </div>
+          </div>
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    </DialogPrimitive.Root>
   );
 }

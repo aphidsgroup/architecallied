@@ -78,3 +78,37 @@ See CONTENT_REQUIRED.md (projects, photography, biography/portrait, client permi
 
 ## Known limitations
 No Playwright (sandbox network restriction) — browser QA used Puppeteer + npm Chromium. NVDA pass pending. /projects Lighthouse performance varies 89–99 by run. Fonts from @fontsource (identical self-hosting to next/font/google, OFL licensed).
+
+---
+
+# Redesign QA addendum — Direction A production implementation (2026-07-20, branch redesign/premium-v2)
+
+## Process
+Visual audit (docs/research/current-visual-audit.md) → Mobbin + live reference research (premium-reference-matrix.md) → coded typography exploration (docs/redesign/typography-exploration.md) → three complete coded directions with screenshots (docs/redesign/) → user selected **Direction A — Monolithic Editorial** → production implementation → target-vs-production comparison.
+
+## Pre-redesign defect fixes
+- packageManager pinned to pnpm@11.15.0; lockfile reconciled (unused @fontsource/jost removed); `pnpm install --frozen-lockfile` passes from clean state.
+- SectionHeading entrances are fail-visible: content never pre-hidden; hidden state applied only inside the ScrollTrigger onEnter callback.
+
+## What changed in production
+- Typography: Fraunces display (roman/italic) + Jost utility; gold-ink token #7a6433 for gold text on light surfaces (5.0:1 on cream).
+- Navigation: minimal header (monogram + Index trigger) → full-screen indexed menu (Radix dialog; monumental destinations, office rail). Old link-row header and Sheet removed.
+- Footer: colophon with monumental email finale on every page.
+- Home: staggered monumental hero with corner coordinates, practice index, art-book approach spread, integrated principal statement.
+- Projects: authored "archive in preparation" composition (typology index + status + contact); **no inactive filters above zero projects**. Full URL-persisted filter system activates automatically when visible projects exist (verified with dev fixtures: select → ?typology=Commercial → "1 project"; Back restores).
+- Expertise: large Fraunces typology index; About: editorial statement + drawn fact table; Contact: closing spread with office panels and city datums; 404 restyled.
+- Design lab removed from production (screenshots preserved in docs/redesign/; B/C lab fonts removed).
+
+## Target fidelity
+Side-by-side comparison of Direction A design-lab target vs production home at 1440px: compositions match. Intentional differences: fuller colophon footer (offices/direct/index columns added), wordmark beside monogram in header, selected-work cards slot under index entry 01 once projects publish.
+
+## Verification (clean state)
+- `pnpm install --frozen-lockfile` ✓ · lint 0 ✓ · type-check 0 ✓ · tests 9/9 ✓ · build ✓ (12 routes) · start + CSP headers ✓ · console clean ✓
+- Keyboard: first Tab = skip link; Index menu: dialog semantics, Escape closes, focus returns to trigger; links keyboard-reachable ✓
+- Reduced motion: hero h1 opacity 1, datum fully drawn immediately ✓
+- Single h1 on every route ✓ · fixtures excluded from production output ✓
+- Lighthouse (production server): Home 95/100/100/100. Projects 80–96 perf across runs (sandbox CPU variance on the dynamic route; a11y 100, SEO 100, BP 96 — the BP deduction is Lighthouse's CSP-uses-unsafe-inline advisory, inherent to Next.js static pages without a nonce infrastructure, documented in next.config.ts).
+- Screenshots (1440 + 390, all redesigned routes): docs/qa/screenshots/prod-*.png; direction targets in docs/redesign/.
+
+## Definition-of-success check
+Template resemblance removed (hero, nav, sections, footer all authored) ✓ · memorable hero without fake photography ✓ · ≥3 authored sections ✓ · unique but usable navigation ✓ · editorial type contrast ✓ · coherent motion system (datum draw + fail-visible entrances) ✓ · datum as identity (hero baseline, menu rules, active indicators, footer signature) ✓ · intentional empty state ✓ · desktop + mobile designed ✓ · fast + accessible ✓ · no unverified content ✓ · production matches selected target ✓

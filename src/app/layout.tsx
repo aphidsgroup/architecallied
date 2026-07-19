@@ -23,6 +23,21 @@ const jost = localFont({
   display: "swap",
 });
 
+/**
+ * Fraunces (variable, optical size) — the Direction A editorial display face
+ * selected after the coded typography exploration (docs/redesign/). SIL OFL,
+ * vendored from @fontsource-variable (licence: src/fonts/OFL-fraunces.txt).
+ * Used for display/headings only; Jost remains the utility/body voice.
+ */
+const fraunces = localFont({
+  src: [
+    { path: "../fonts/fraunces-latin-opsz-normal.woff2", style: "normal" },
+    { path: "../fonts/fraunces-latin-opsz-italic.woff2", style: "italic" },
+  ],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -53,7 +68,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={jost.variable}>
+    <html lang="en" className={`${jost.variable} ${fraunces.variable}`}>
       <body>
         <a href="#main" className="skip-link label">
           Skip to content

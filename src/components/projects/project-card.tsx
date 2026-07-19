@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
       )}
       <div className="p-5">
-        <h3 className="text-lg leading-snug group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">
+        <h3 className="font-display text-lg leading-snug group-hover:underline group-hover:decoration-gold group-hover:underline-offset-4">
           {project.title}
         </h3>
         <p className="label mt-2 text-ink-muted">

@@ -1,6 +1,6 @@
 # Archi-tec Allied — practice website
 
-Editorial-minimal architecture-practice website for **archi-tec allied** (Archi-tec Allied), Chennai & Bhubaneswar. Built with the approved specification in `docs/design/` and the content-integrity rules in `CONTENT_REQUIRED.md`.
+Premium editorial architecture-practice website (visual system: "Direction A — Monolithic Editorial", selected from three coded design-lab directions; see docs/redesign/) for **archi-tec allied** (Archi-tec Allied), Chennai & Bhubaneswar. Built with the approved specification in `docs/design/` and the content-integrity rules in `CONTENT_REQUIRED.md`.
 
 ## Stack (exact versions pinned in pnpm-lock.yaml)
 - Next.js **16.2.10** (App Router; latest patched stable at build time, 2026-07-20)

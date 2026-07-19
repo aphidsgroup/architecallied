@@ -16,7 +16,7 @@ export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-[1360px] px-4 pb-24 pt-32 md:px-6 md:pt-40">
       <p className="label text-ink-muted">Privacy</p>
-      <h1 className="mt-4 max-w-3xl text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
+      <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
         Privacy on this website
       </h1>
 

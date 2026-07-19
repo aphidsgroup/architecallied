@@ -106,7 +106,7 @@ export default async function ProjectPage({
             </Link>{" "}
             / {project.typology}
           </p>
-          <h1 className="mt-4 max-w-3xl text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
+          <h1 className="mt-4 max-w-3xl font-display text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
             {project.title}
           </h1>
         </header>

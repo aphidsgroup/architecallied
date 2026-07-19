@@ -9,53 +9,58 @@ export const metadata = pageMetadata({
 });
 
 /**
- * Verified facts only. The description paragraph is DRAFT marketing copy
- * (site.positioning, draft: true) pending client review.
- * /about/principal and /about/people intentionally do not exist yet —
- * see CONTENT_REQUIRED.md.
+ * Direction A practice page: positioning as an editorial statement,
+ * leadership woven into the narrative, offices as a drawn fact table.
+ * Verified facts only; description is DRAFT (site.positioning.draft).
  */
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-[1360px] px-4 pb-24 pt-32 md:px-6 md:pt-40">
-      <p className="label text-ink-muted">About</p>
-      <h1 className="mt-4 max-w-3xl text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
-        The practice
+    <div className="px-6 pb-28 pt-32 md:px-10 md:pt-40">
+      <p className="label text-ink-muted">03 — Practice</p>
+      <h1 className="mt-4 max-w-5xl font-display text-[clamp(2.25rem,5.5vw,4.5rem)] font-light leading-[1.1]">
+        An architecture practice led by{" "}
+        <em className="text-gold-ink">{site.principal.name}</em>,{" "}
+        {site.principal.qualification} — working from Chennai and Bhubaneswar
       </h1>
 
-      <div className="mt-16 grid gap-14 md:grid-cols-12">
+      <div className="mt-20 grid gap-14 md:grid-cols-12">
         <div className="md:col-span-6">
-          <p className="text-xl leading-relaxed">
+          <p className="font-display text-xl leading-relaxed md:text-2xl">
             {site.positioning.description}
           </p>
-          <p className="mt-6 text-ink-muted">{site.clientStatement}</p>
+          <p className="mt-8 border-l-2 border-gold pl-6 text-ink-muted">
+            {site.clientStatement}
+          </p>
         </div>
 
-        <div className="md:col-span-5 md:col-start-8">
-          <div className="border-t rule">
-            <div className="grid grid-cols-2 gap-4 border-b rule py-4">
-              <dt className="label text-ink-muted">Practice</dt>
-              <dd className="lowercase">{site.displayName}</dd>
-            </div>
-            <div className="grid grid-cols-2 gap-4 border-b rule py-4">
-              <dt className="label text-ink-muted">Principal Architect</dt>
+        <dl className="h-fit md:col-span-5 md:col-start-8">
+          <div className="grid grid-cols-2 gap-4 border-t-2 border-navy py-4">
+            <dt className="label text-ink-muted">Practice</dt>
+            <dd className="lowercase">{site.displayName}</dd>
+          </div>
+          <div className="grid grid-cols-2 gap-4 border-t rule py-4">
+            <dt className="label text-ink-muted">Principal Architect</dt>
+            <dd>
+              {site.principal.name}, {site.principal.qualification}
+            </dd>
+          </div>
+          {site.offices.map((o, i) => (
+            <div key={o.label} className="grid grid-cols-2 gap-4 border-t rule py-4">
+              <dt className="label text-ink-muted">{o.label}</dt>
               <dd>
-                {site.principal.name}, {site.principal.qualification}
+                {o.lines.map((l) => (
+                  <span key={l} className="block">
+                    {l}
+                  </span>
+                ))}
+                <span className="label mt-2 block text-gold-ink">
+                  {i === 0 ? "13.08°N 80.27°E" : "20.27°N 85.84°E"}
+                </span>
               </dd>
             </div>
-            {site.offices.map((o) => (
-              <div key={o.label} className="grid grid-cols-2 gap-4 border-b rule py-4">
-                <dt className="label text-ink-muted">{o.label}</dt>
-                <dd>
-                  {o.lines.map((l) => (
-                    <span key={l} className="block">
-                      {l}
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            ))}
-          </div>
-        </div>
+          ))}
+          <div className="border-t rule" />
+        </dl>
       </div>
 
       <script

@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { DatumSweep } from "@/components/datum-sweep";
 import { SectionHeading } from "@/components/section-heading";
-import { expertiseAreas } from "@/content/expertise";
 import { site } from "@/content/site";
 import { getPublishedProjects } from "@/lib/projects";
 import { ProjectCard } from "@/components/projects/project-card";
@@ -15,173 +13,177 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
-/** DRAFT copy requiring client review is sourced from src/content/site.ts. */
+/**
+ * Home — Direction A: Monolithic Editorial (selected from the design lab,
+ * docs/redesign/). Monumental Fraunces hero with corner coordinates, the
+ * practice presented as a vertical index, an art-book approach spread, an
+ * integrated principal statement; the global colophon footer concludes the
+ * page with the monumental email. Draft copy flags live in src/content.
+ * City coordinates are public, city-level geographic facts.
+ */
 export default function HomePage() {
   const selected = getPublishedProjects().slice(0, 3);
 
   return (
     <>
-      {/* HERO — solid navy, typographic; no fake photography */}
-      <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy pt-20">
-        {/* Two 45° solid planes anchored to the edge, echoing the logo's angle */}
-        <div
+      {/* HERO — monumental staggered wordmark, corner utilities */}
+      <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-20 text-beige md:px-10">
+        <p className="pointer-events-none absolute left-6 top-24 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
+          Est. Chennai — 13.08°N 80.27°E
+        </p>
+        <p className="pointer-events-none absolute right-6 top-24 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:right-10 lg:block">
+          Bhubaneswar — 20.27°N 85.84°E
+        </p>
+        <p className="pointer-events-none absolute bottom-10 left-6 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
+          Principal Architect — {site.principal.name}, {site.principal.qualification}
+        </p>
+        <p className="pointer-events-none absolute bottom-10 right-6 hidden text-xs uppercase tracking-[0.2em] text-gold md:right-10 lg:block">
+          Architecture · Interiors · Master Planning
+        </p>
+
+        <h1 className="hero-rise hero-rise-1 font-display font-light leading-[0.92] text-cream">
+          <span className="block text-[clamp(4rem,14vw,12.5rem)]">archi-tec</span>
+          <span className="block pl-[8vw] text-[clamp(4rem,14vw,12.5rem)] italic text-gold">
+            allied
+          </span>
+        </h1>
+        <p className="hero-rise hero-rise-2 mt-10 max-w-md text-lg leading-relaxed text-beige md:pl-[8vw]">
+          {site.positioning.tagline}
+        </p>
+
+        <svg
           aria-hidden
-          className="absolute -right-24 top-0 hidden h-full w-[38%] bg-navy-soft lg:block"
-          style={{ clipPath: "polygon(35% 0, 100% 0, 100% 100%, 0 100%)" }}
-        />
-        <div
-          aria-hidden
-          className="absolute -right-24 bottom-0 hidden h-[45%] w-[24%] bg-gold/10 lg:block"
-          style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 0 100%)" }}
-        />
-        <div className="relative mx-auto w-full max-w-[1360px] px-4 py-24 md:px-6">
-          <p className="hero-rise hero-rise-1 label text-gold">
-            Architecture · Chennai &amp; Bhubaneswar
-          </p>
-          <h1 className="hero-rise hero-rise-2 mt-6 max-w-4xl text-[clamp(2.75rem,8vw,5.5rem)] font-light lowercase leading-[1.05] text-cream">
-            {site.displayName}
-          </h1>
-          <p className="hero-rise hero-rise-3 mt-8 max-w-xl text-lg text-beige">
-            {site.positioning.tagline}
-          </p>
-          <DatumSweep animated className="mt-14 h-12 w-full max-w-2xl md:h-16" />
-        </div>
+          viewBox="0 0 1200 60"
+          className="hero-rise hero-rise-3 mt-14 h-8 w-full"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0 50 H760 L840 10 H1200"
+            stroke="var(--color-gold)"
+            strokeWidth="1"
+            fill="none"
+            pathLength={1000}
+            className="datum-path"
+          />
+        </svg>
       </section>
 
-      {/* SELECTED WORK */}
-      <section aria-labelledby="work-h" className="bg-cream">
-        <div className="mx-auto max-w-[1360px] px-4 py-24 md:px-6 md:py-36">
-          <div className="grid gap-10 md:grid-cols-12">
-            <div className="md:col-span-5">
-              <p className="label text-ink-muted">Selected work</p>
-              <SectionHeading id="work-h" className="mt-4 text-[clamp(2rem,4vw,3rem)] leading-tight">
-                Work grounded in its context
-              </SectionHeading>
-            </div>
-            <div className="md:col-span-6 md:col-start-7">
-              {selected.length > 0 ? (
-                <ul className="grid gap-8">
-                  {selected.map((p) => (
-                    <li key={p.slug}>
-                      <ProjectCard project={p} />
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="border-l-2 border-gold pl-8">
-                  <p className="text-lg">
-                    A curated selection of our work is being prepared for
-                    publication.
-                  </p>
-                  <p className="mt-3 text-ink-muted">
-                    Project documentation and photography are currently under
-                    review. In the meantime, we are glad to discuss relevant
-                    experience directly.
-                  </p>
-                  <Button asChild variant="outline" className="mt-8">
-                    <Link href="/projects">Visit the projects page</Link>
-                  </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* EXPERTISE OVERVIEW */}
-      <section aria-labelledby="exp-h" className="bg-white">
-        <div className="mx-auto max-w-[1360px] px-4 py-24 md:px-6 md:py-36">
-          <p className="label text-ink-muted">Expertise</p>
-          <SectionHeading id="exp-h" className="mt-4 max-w-2xl text-[clamp(2rem,4vw,3rem)] leading-tight">
-            Buildings across the breadth of everyday life
-          </SectionHeading>
-          <ul className="mt-14 grid border-t rule sm:grid-cols-2">
-            {expertiseAreas.map((area) => (
-              <li
-                key={area.typology}
-                className="flex items-baseline justify-between gap-6 border-b rule py-5 sm:odd:pr-10 sm:even:pl-10"
+      {/* THE PRACTICE, INDEXED */}
+      <section
+        aria-labelledby="index-h"
+        className="surface-dark border-t border-beige/10 bg-navy px-6 py-28 text-beige md:px-10"
+      >
+        <h2 id="index-h" className="label text-gold">
+          The practice, indexed
+        </h2>
+        <ol className="mt-10">
+          {[
+            ["01", "Selected work", "A curated archive is in preparation. Documentation and photography under review.", "/projects"],
+            ["02", "Expertise", "Residential to master planning — six typologies, one method.", "/expertise"],
+            ["03", "Practice", `Led by ${site.principal.name}, ${site.principal.qualification}. Chennai and Bhubaneswar.`, "/about"],
+            ["04", "Enquiries", "Client credentials are available on request.", "/contact"],
+          ].map(([n, title, sub, href]) => (
+            <li key={n} className="group border-b border-beige/10">
+              <Link
+                href={href}
+                className="grid items-baseline gap-2 py-8 md:grid-cols-12 md:gap-6"
               >
-                <span className="text-xl font-normal">{area.typology}</span>
+                <span className="font-display text-2xl text-gold/70 md:col-span-1">
+                  {n}
+                </span>
+                <span className="font-display text-[clamp(2rem,5vw,4rem)] font-light leading-none text-cream transition-colors group-hover:text-gold md:col-span-6">
+                  {title}
+                </span>
+                <span className="text-sm leading-relaxed text-beige-muted md:col-span-4 md:col-start-9">
+                  {sub}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+
+        {/* Selected work cards appear here once real projects are published */}
+        {selected.length > 0 && (
+          <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {selected.map((p) => (
+              <li key={p.slug}>
+                <ProjectCard project={p} />
               </li>
             ))}
           </ul>
-          <Button asChild variant="ghost" className="mt-10 px-0">
-            <Link href="/expertise">About our expertise</Link>
-          </Button>
-        </div>
+        )}
       </section>
 
-      {/* PRACTICE APPROACH — DRAFT copy, asymmetric 5/7 grid, single gold rule */}
-      <section aria-labelledby="approach-h" className="surface-dark bg-navy text-beige">
-        <div className="mx-auto max-w-[1360px] px-4 py-24 md:px-6 md:py-36">
-          <div className="grid gap-14 md:grid-cols-12">
-            <div className="md:col-span-5">
-              <p className="label text-gold">Approach</p>
-              <SectionHeading id="approach-h" className="mt-4 text-[clamp(2rem,4vw,3rem)] leading-tight text-cream">
-                How we work
-              </SectionHeading>
-            </div>
-            <ol className="border-l border-gold/60 pl-8 md:col-span-6 md:col-start-7">
+      {/* APPROACH — art-book spread on cream */}
+      <section
+        aria-labelledby="approach-h"
+        className="bg-cream px-6 py-28 text-navy md:px-10"
+      >
+        <div className="grid gap-12 md:grid-cols-12">
+          <h2 id="approach-h" className="label self-start text-ink-muted md:col-span-2">
+            Approach
+          </h2>
+          <div className="md:col-span-9 md:col-start-4">
+            <SectionHeading className="font-display text-[clamp(1.75rem,3.6vw,3.25rem)] font-light leading-[1.25]">
+              Every site brings its own climate, street and habits of use.{" "}
+              <em className="text-gold-ink">
+                The design grows from what is already there
+              </em>{" "}
+              — organised simply, built to age well, and carried with the same
+              care from first drawing to final handover.
+            </SectionHeading>
+            <ul className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2">
               {[
-                ["Context first", "Every site brings its own climate, street and habits of use. The design grows from what is already there."],
-                ["Clarity of plan", "Simple, legible organisation — buildings that people understand without instruction."],
-                ["Built to endure", "Materials and details chosen for how they age, not how they photograph."],
-                ["Careful stewardship", "A project is a long relationship: budgets, approvals and construction held to the same standard as the drawing."],
-              ].map(([title, body], i) => (
-                <li key={title} className={i > 0 ? "mt-10" : undefined}>
-                  <span aria-hidden className="block text-3xl font-light text-gold">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-2 text-xl text-cream">{title}</h3>
-                  <p className="mt-2 max-w-md text-beige-muted">{body}</p>
+                ["Context first", "Site, climate and use before form."],
+                ["Clarity of plan", "Buildings people understand without instruction."],
+                ["Built to endure", "Materials chosen for how they age."],
+                ["Careful stewardship", "Budget and construction held to the drawing's standard."],
+              ].map(([t, d], i) => (
+                <li key={t} className="border-t border-navy/15 pt-4">
+                  <h3 className="font-display text-xl font-normal text-navy">
+                    <span aria-hidden className="mr-3 text-sm text-ink-muted">
+                      0{i + 1}
+                    </span>
+                    {t}
+                  </h3>
+                  <p className="mt-1 text-sm text-ink-muted">{d}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* PRINCIPAL — verified facts only */}
-      <section aria-labelledby="principal-h" className="bg-cream">
-        <div className="mx-auto max-w-[1360px] px-4 py-24 md:px-6 md:py-36">
-          <div className="grid gap-10 md:grid-cols-12">
-            <div className="md:col-span-4">
-              <p className="label text-ink-muted">Leadership</p>
-              <SectionHeading id="principal-h" className="mt-4 text-[clamp(2rem,4vw,3rem)] leading-tight">
-                {site.principal.name},{" "}
-                <span className="whitespace-nowrap">{site.principal.qualification}</span>
-              </SectionHeading>
-              <p className="label mt-4 text-gold">{site.principal.role}</p>
-            </div>
-            <div className="md:col-span-6 md:col-start-6">
-              <p className="text-lg">
-                {site.name} is led by {site.principal.name},{" "}
-                {site.principal.qualification}, practising from the head office
-                in T. Nagar, Chennai, with a branch office in Bhubaneswar,
-                Odisha.
-              </p>
-              <p className="mt-6 text-ink-muted">{site.clientStatement}</p>
-            </div>
+      {/* PRINCIPAL — integrated editorial statement */}
+      <section
+        aria-labelledby="principal-h"
+        className="surface-dark bg-navy px-6 py-28 text-beige md:px-10"
+      >
+        <div className="grid gap-10 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <SectionHeading
+              id="principal-h"
+              className="font-display text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-tight text-cream"
+            >
+              {site.name} is led by{" "}
+              <em className="text-gold">{site.principal.name}</em>,{" "}
+              {site.principal.qualification}
+            </SectionHeading>
+            <p className="mt-8 max-w-lg text-beige-muted">
+              Practising from the head office in T. Nagar, Chennai, with a
+              branch office in Bhubaneswar, Odisha. {site.clientStatement}
+            </p>
           </div>
+          <dl className="self-end text-sm md:col-span-4 md:col-start-9">
+            {site.offices.map((o) => (
+              <div key={o.label} className="border-t border-beige/10 py-4">
+                <dt className="label text-gold">{o.label}</dt>
+                <dd className="mt-2 text-beige-muted">{o.lines.join(", ")}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
-      </section>
-
-      {/* CONTACT CTA */}
-      <section aria-labelledby="cta-h" className="bg-white">
-        <div className="mx-auto max-w-[1360px] px-4 py-24 md:px-6 md:py-36">
-          <DatumSweep className="h-10 w-full max-w-xl" />
-          <SectionHeading id="cta-h" className="mt-10 max-w-3xl text-[clamp(2rem,5vw,3.75rem)] leading-tight">
-            Discuss a project with us
-          </SectionHeading>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button asChild>
-              <a href={`mailto:${site.email}`}>{site.email}</a>
-            </Button>
-            <Button asChild variant="outline">
-              <a href={site.phone.mobile.href}>{site.phone.mobile.display}</a>
-            </Button>
-          </div>
-        </div>
+        <DatumSweep className="mt-20 h-8 w-full max-w-xl" />
       </section>
     </>
   );

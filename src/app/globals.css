@@ -9,8 +9,13 @@
   --color-gold: #c6a75e;
   --color-cream: #f5f0e8;
   --color-ink-muted: #4a5468;
+  /* Gold as TEXT on light surfaces (AA: 5.0 on cream, 5.7 on white).
+     Interface gold #C6A75E remains for rules/accents and text on navy. */
+  --color-gold-ink: #7a6433;
 
   --font-sans: var(--font-jost), system-ui, sans-serif;
+  /* Direction A (selected): Fraunces editorial display */
+  --font-display: var(--font-fraunces), Georgia, serif;
 
   --tracking-label: 0.14em;
 }
@@ -43,6 +48,11 @@ body {
 .surface-dark :focus-visible,
 .surface-dark:focus-visible {
   outline-color: var(--color-gold);
+}
+
+/* ---------- Display face (Fraunces) ---------- */
+.font-display {
+  font-family: var(--font-display);
 }
 
 /* ---------- Utility: uppercase metadata label ---------- */

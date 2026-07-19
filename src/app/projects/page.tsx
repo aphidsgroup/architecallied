@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/content/site";
+import { expertiseAreas } from "@/content/expertise";
 import {
   filterProjects,
   getLocations,
@@ -18,8 +19,13 @@ export const metadata = pageMetadata({
 });
 
 /**
- * No loading UI: the data source is a local typed module — nothing suspends
- * and nothing is fetched, so a skeleton would be dishonest.
+ * Direction A projects page.
+ * - With no visible projects: an authored "practice archive in preparation"
+ *   composition — typology structure, publishing status and direct contact.
+ *   NO inactive filter controls are rendered (audit defect fixed).
+ * - With projects: the full filter system activates as a premium index
+ *   (URL-persisted, keyboard/touch accessible).
+ * No loading UI: data is a local typed module; nothing suspends.
  */
 export default async function ProjectsPage({
   searchParams,
@@ -33,56 +39,93 @@ export default async function ProjectsPage({
   const projects = filterProjects(all, filters);
 
   return (
-    <div className="mx-auto max-w-[1360px] px-4 pb-24 pt-32 md:px-6 md:pt-40">
-      <p className="label text-ink-muted">Projects</p>
-      <h1 className="mt-4 max-w-3xl text-[clamp(2.25rem,5vw,3.75rem)] font-light leading-tight">
-        The work of the practice
+    <div className="px-6 pb-28 pt-32 md:px-10 md:pt-40">
+      <p className="label text-ink-muted">01 — Projects</p>
+      <h1 className="mt-4 max-w-4xl font-display text-[clamp(2.5rem,7vw,5.5rem)] font-light leading-[1.02]">
+        The practice <em className="text-gold-ink">archive</em>
       </h1>
 
-      <div className="mt-14">
-        <ProjectFilters
-          filters={filters}
-          locations={locations}
-          resultCount={projects.length}
-        />
-      </div>
-
-      {projects.length > 0 ? (
-        <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((p) => (
-            <li key={p.slug}>
-              <ProjectCard project={p} />
-            </li>
-          ))}
-        </ul>
-      ) : all.length === 0 ? (
-        /* Honest production empty state — no projects published yet. */
-        <div className="mt-16 max-w-2xl border-l-2 border-gold pl-8">
-          <h2 className="text-2xl font-normal">
-            Project portfolio in preparation
-          </h2>
-          <p className="mt-4 text-ink-muted">
-            We are preparing our project documentation and photography for
-            publication. Until then, we are glad to share relevant experience
-            and credentials directly — please get in touch.
-          </p>
-          <Button asChild className="mt-8">
-            <Link href="/contact">Contact the practice</Link>
-          </Button>
-        </div>
+      {all.length > 0 ? (
+        <>
+          <div className="mt-14">
+            <ProjectFilters
+              filters={filters}
+              locations={locations}
+              resultCount={projects.length}
+            />
+          </div>
+          {projects.length > 0 ? (
+            <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((p) => (
+                <li key={p.slug}>
+                  <ProjectCard project={p} />
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="mt-16 max-w-2xl">
+              <h2 className="font-display text-2xl font-normal">
+                No projects match
+              </h2>
+              <p className="mt-4 text-ink-muted">
+                No projects match the selected filters.
+              </p>
+              <Button asChild variant="outline" className="mt-8">
+                <Link href="/projects" scroll={false}>
+                  Clear all filters
+                </Link>
+              </Button>
+            </div>
+          )}
+        </>
       ) : (
-        /* Filters returned nothing. */
-        <div className="mt-16 max-w-2xl">
-          <h2 className="text-2xl font-normal">No projects match</h2>
-          <p className="mt-4 text-ink-muted">
-            No projects match the selected filters.
-          </p>
-          <Button asChild variant="outline" className="mt-8">
-            <Link href="/projects" scroll={false}>
-              Clear all filters
-            </Link>
-          </Button>
-        </div>
+        /* AUTHORED EMPTY ARCHIVE — no inactive filters, no "0 projects" */
+        <>
+          <div className="mt-16 grid gap-12 md:grid-cols-12">
+            <div className="md:col-span-6">
+              <h2 className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-light leading-snug">
+                An archive in preparation
+              </h2>
+              <p className="mt-6 max-w-lg leading-relaxed text-ink-muted">
+                Project documentation and photography are being prepared for
+                publication and will appear here, indexed by typology,
+                location and status. Until the archive opens,{" "}
+                {site.clientStatement.toLowerCase()}
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Button asChild>
+                  <a href={`mailto:${site.email}`}>Request credentials</a>
+                </Button>
+                <Button asChild variant="outline">
+                  <Link href="/expertise">Explore our expertise</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Future structure of the archive, stated honestly */}
+            <div className="md:col-span-5 md:col-start-8">
+              <h2 className="label text-ink-muted">
+                The archive will be indexed by
+              </h2>
+              <ol className="mt-6 border-t rule">
+                {expertiseAreas.map((a, i) => (
+                  <li
+                    key={a.typology}
+                    className="flex items-baseline gap-5 border-b rule py-4"
+                  >
+                    <span className="font-display text-lg text-gold-ink">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="font-display text-xl">{a.typology}</span>
+                    <span className="label ml-auto text-ink-muted">
+                      In preparation
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

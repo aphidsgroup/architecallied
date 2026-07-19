@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette (docs/design/design-system.md) */
+  --color-navy: #1f2a44;
+  --color-navy-soft: #2a3757;
+  --color-beige: #e8dcc8;
+  --color-beige-muted: #b9ae97;
+  --color-gold: #c6a75e;
+  --color-cream: #f5f0e8;
+  --color-ink-muted: #4a5468;
+
+  --font-sans: var(--font-jost), system-ui, sans-serif;
+
+  --tracking-label: 0.14em;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  @apply bg-white text-navy font-sans antialiased;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+/* ---------- Focus system ---------- */
+:focus-visible {
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+.surface-dark :focus-visible,
+.surface-dark:focus-visible {
+  outline-color: var(--color-gold);
+}
+
+/* ---------- Utility: uppercase metadata label ---------- */
+.label {
+  @apply text-xs font-semibold uppercase;
+  letter-spacing: var(--tracking-label);
+}
+
+/* ---------- Fine architectural rules ---------- */
+.rule {
+  border-color: color-mix(in srgb, var(--color-navy) 15%, transparent);
+}
+.surface-dark .rule {
+  border-color: color-mix(in srgb, var(--color-beige) 20%, transparent);
+}
+
+/* ---------- Skip link ---------- */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  background: var(--color-navy);
+  color: var(--color-beige);
+  padding: 0.75rem 1rem;
+  transform: translateY(-200%);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+/* ---------- Datum sweep (signature element) ---------- */
+.datum-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: datum-draw 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.4s forwards;
+}
+@keyframes datum-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Hero entrance (CSS only) ---------- */
+.hero-rise {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: hero-rise 0.7s ease-out forwards;
+}
+.hero-rise-1 { animation-delay: 0.05s; }
+.hero-rise-2 { animation-delay: 0.15s; }
+.hero-rise-3 { animation-delay: 0.25s; }
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Filter transitions ---------- */
+.card-enter {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Active filter underline (datum indicator) */
+.filter-active-line {
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+[data-active="true"] .filter-active-line {
+  transform: scaleX(1);
+}
+
+/* ---------- Reduced motion: everything lands instantly ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .datum-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  .hero-rise {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .card-enter,
+  .filter-active-line {
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}

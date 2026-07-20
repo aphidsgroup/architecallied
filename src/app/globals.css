@@ -127,6 +127,37 @@ body {
   transform: scaleX(1);
 }
 
+/* ---------- Client logo marquee ---------- */
+/* Rows run continuously; direction alternates per row via .marquee-reverse.
+   Hover or keyboard focus inside a row pauses it. Reduced motion swaps the
+   animated rows for the static wrapped grid below them. */
+.marquee-track {
+  animation: marquee-scroll 48s linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-container {
+    display: none;
+  }
+  .marquee-static {
+    display: flex !important;
+  }
+}
+
 /* ---------- Reduced motion: everything lands instantly ---------- */
 @media (prefers-reduced-motion: reduce) {
   .datum-path {

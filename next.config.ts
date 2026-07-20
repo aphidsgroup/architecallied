@@ -21,6 +21,9 @@ const csp = [
   "img-src 'self' data:",
   "font-src 'self'",
   "connect-src 'self'",
+  // Curated films: privacy-enhanced YouTube iframes, loaded only on click
+  // (components/home/film-card.tsx). No other third-party origins.
+  "frame-src https://www.youtube-nocookie.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self' mailto:",

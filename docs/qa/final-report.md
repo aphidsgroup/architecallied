@@ -112,3 +112,8 @@ Side-by-side comparison of Direction A design-lab target vs production home at 1
 
 ## Definition-of-success check
 Template resemblance removed (hero, nav, sections, footer all authored) ✓ · memorable hero without fake photography ✓ · ≥3 authored sections ✓ · unique but usable navigation ✓ · editorial type contrast ✓ · coherent motion system (datum draw + fail-visible entrances) ✓ · datum as identity (hero baseline, menu rules, active indicators, footer signature) ✓ · intentional empty state ✓ · desktop + mobile designed ✓ · fast + accessible ✓ · no unverified content ✓ · production matches selected target ✓
+
+---
+
+# Media addendum (2026-07-20, later)
+Added at client instruction: (1) **Studies** — three AI-generated abstract brand compositions (procedurally generated in-palette; captioned "AI-generated brand imagery — not built work"); (2) **Films** — three verified third-party architecture films (TED × 2, B.V. Doshi documentary trailer) as click-to-load youtube-nocookie embeds behind authored navy poster cards (CSP: frame-src youtube-nocookie.com added; no thumbnail/img-src widening; zero CSP violations verified with an active embed); (3) **Our Clients marquee** — 36 logos sliced from the practice's own presentation strips, three continuously running rows (R→L / L→R / R→L), pause on hover/focus, duplicate sets aria-hidden, reduced-motion renders a static wrapped grid (verified). Client-permission tracking updated: logos now displayed at practice instruction, confirmations still outstanding. Lint/type/build clean; marquee direction, hover-pause, embed load and reduced-motion behaviour all verified in headless Chromium.

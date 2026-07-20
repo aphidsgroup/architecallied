@@ -3,7 +3,13 @@
  * FORMATS.pptx" slides 8–9 (visually inspected). See
  * docs/research/client-permissions.md for the full inspection notes.
  *
- * NOTHING in this file is rendered on the website. No client name or logo
+ * STATUS UPDATE 2026-07-20: at Archi-tec Allied's explicit instruction the
+ * client logos ARE now displayed on the website (home page marquee,
+ * src/content/media.ts). This file remains the permission-tracking record:
+ * display-name confirmations and written permissions are still outstanding
+ * for every entry below and should be obtained (CONTENT_REQUIRED.md #2).
+ *
+ * Previously this file noted that nothing was rendered on the website. No client name or logo
  * may be published until status === "approved" is set by Archi-tec Allied
  * after confirming the relationship, the preferred legal/display name and
  * the applicable permission/trademark policy. Corporate and government
@@ -43,7 +49,7 @@ export const clientReview: ClientReviewEntry[] = [
   { provisionalName: "JAINS (Jain Estates?)", sourceSlide: 8, status: "identity-requires-confirmation" },
   { provisionalName: "RRPL", sourceSlide: 8, status: "identity-requires-confirmation" },
   { provisionalName: "Unidentified mark — slide 8, row 3, item 2", sourceSlide: 8, status: "identity-requires-confirmation" },
-  { provisionalName: "Unidentified seal — slide 8, row 5, item 1", sourceSlide: 8, status: "identity-requires-confirmation" },
+  { provisionalName: "Air Force Naval Housing Board", sourceSlide: 8, status: "identified-pending-permission", notes: "Identified from high-resolution logo extraction 2026-07-20" },
   { provisionalName: "Punjab National Bank", sourceSlide: 9, status: "identified-pending-permission" },
   { provisionalName: "Yuga Homes Ltd", sourceSlide: 9, status: "identified-pending-permission" },
   { provisionalName: "G. Kuppuswamy Naidu Memorial Hospital", sourceSlide: 9, status: "identified-pending-permission" },
@@ -57,7 +63,7 @@ export const clientReview: ClientReviewEntry[] = [
   { provisionalName: "GENCO", sourceSlide: 9, status: "identity-requires-confirmation" },
   { provisionalName: "Serene", sourceSlide: 9, status: "identity-requires-confirmation" },
   { provisionalName: "Unidentified crest — slide 9, row 1, item 3", sourceSlide: 9, status: "identity-requires-confirmation" },
-  { provisionalName: "Unidentified mark — slide 9, row 2, item 3", sourceSlide: 9, status: "identity-requires-confirmation" },
+  { provisionalName: "IRWO (Indian Railway Welfare Organisation?)", sourceSlide: 9, status: "identity-requires-confirmation", notes: "Mark reads IRWO at high resolution" },
   { provisionalName: "Unidentified seal — slide 9, row 4, item 1", sourceSlide: 9, status: "identity-requires-confirmation" },
-  { provisionalName: "Unidentified crest — slide 9, row 4, item 3", sourceSlide: 9, status: "identity-requires-confirmation" },
+  { provisionalName: "Co-optex", sourceSlide: 9, status: "identified-pending-permission", notes: "Identified from high-resolution logo extraction 2026-07-20" },
 ];

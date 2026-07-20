@@ -23,3 +23,5 @@ Items the practice must supply or confirm before the related content can be publ
 - Interface gold #C6A75E used for UI accents; logo files remain #C5A75F untouched.
 - English-only site assumed.
 - mailto/tel direct contact links used; no form backend.
+
+14. **Practice films/photography to replace curated media** — the Films section currently embeds clearly-labelled third-party architecture films, and the Studies section uses AI-generated brand imagery. Replace both with practice films and real project photography when available.

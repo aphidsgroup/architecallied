@@ -25,6 +25,9 @@ pnpm build && pnpm start   # production build + serve (CSP active)
 - `SITE_URL` — production origin. **Required before deployment**; drives canonicals, OG, robots, sitemap.
 - `NEXT_PUBLIC_ENABLE_FIXTURES` — `true` shows clearly-labelled dev fixture projects in `pnpm dev` only. Hard-excluded from production builds, sitemap, metadata and JSON-LD (tested).
 
+## Adding real photography (drop-in)
+Place correctly named JPGs in `public/images/photos/` and rebuild — all imagery slots switch from AI study plates to your photos automatically (names + sizes in `src/lib/photos.ts`). Record licences in ATTRIBUTIONS.md.
+
 ## Editing content
 All content is typed local data in `src/content/`:
 - `site.ts` — verified facts (name, principal, offices, contacts) + DRAFT positioning copy flagged `draft: true`

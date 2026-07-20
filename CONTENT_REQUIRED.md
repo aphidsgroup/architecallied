@@ -24,4 +24,6 @@ Items the practice must supply or confirm before the related content can be publ
 - English-only site assumed.
 - mailto/tel direct contact links used; no form backend.
 
-14. **Practice films/photography to replace curated media** — the Films section currently embeds clearly-labelled third-party architecture films, and the Studies section uses AI-generated brand imagery. Replace both with practice films and real project photography when available.
+15. (superseded by #14a below) Practice films to replace curated media — the Films section currently embeds clearly-labelled third-party architecture films, and the Studies section uses AI-generated brand imagery. Replace both with practice films and real project photography when available.
+
+14a. **REAL PHOTOGRAPHY — highest priority.** The client has asked for real photographic imagery site-wide. It cannot be sourced from the build environment. Drop seven JPGs into public/images/photos/ (photo-residential.jpg, photo-commercial.jpg, photo-institutional.jpg, photo-industrial.jpg, photo-interiors.jpg, photo-planning.jpg ~1600x1200; photo-panorama.jpg ~2400x800) — own photography or properly licensed stock — and rebuild: every imagery slot (home plates, expertise stage, about panorama, projects plate, hero cursor trail) switches to the photos automatically. Record each file's licence in ATTRIBUTIONS.md.

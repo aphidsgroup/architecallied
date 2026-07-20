@@ -35,6 +35,17 @@ export function ScreeningRoom() {
               <span className={cn("label transition-colors", active === i ? "text-gold" : "text-beige-muted")}>
                 {String(i + 1).padStart(2, "0")}
               </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://i.ytimg.com/vi/${f.youtubeId}/hqdefault.jpg`}
+                alt=""
+                width={96}
+                height={54}
+                className={cn(
+                  "hidden aspect-video w-24 shrink-0 self-center border object-cover transition-opacity sm:block",
+                  active === i ? "border-gold/60 opacity-100" : "border-beige/15 opacity-60",
+                )}
+              />
               <span>
                 <span
                   className={cn(
@@ -73,6 +84,18 @@ export function ScreeningRoom() {
               aria-label={`Play film: ${film.title} — ${film.attribution} (loads YouTube)`}
               className="group absolute inset-0 h-full w-full text-left"
             >
+              {/* Real video thumbnail (YouTube CDN) under a navy scrim for
+                  text legibility; graceful navy field if it fails to load. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`https://i.ytimg.com/vi/${film.youtubeId}/maxresdefault.jpg`}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-95"
+              />
+              <span
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-navy via-navy/45 to-navy/15"
+              />
               {/* authored stage: ghost numeral + datum + title */}
               <span
                 aria-hidden

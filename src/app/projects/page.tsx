@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { site } from "@/content/site";
 import { expertiseAreas } from "@/content/expertise";
-import { studySeries } from "@/content/media";
+import { getPlates } from "@/lib/photos";
 import {
   filterProjects,
   getLocations,
@@ -39,6 +39,7 @@ export default async function ProjectsPage({
   const locations = getLocations(all);
   const filters = parseFilters(params, locations);
   const projects = filterProjects(all, filters);
+  const plate = getPlates()[5];
 
   return (
     <div className="px-6 pb-28 pt-32 md:px-10 md:pt-40">
@@ -108,16 +109,16 @@ export default async function ProjectsPage({
             <div className="md:col-span-5 md:col-start-8">
               <figure className="mb-10">
                 <Image
-                  src={studySeries[5].src}
-                  alt={studySeries[5].alt}
-                  width={studySeries[5].width}
-                  height={studySeries[5].height}
+                  src={plate.src}
+                  alt={plate.alt}
+                  width={plate.width}
+                  height={plate.height}
                   sizes="(min-width: 768px) 40vw, 100vw"
                   className="aspect-[16/9] w-full border rule object-cover"
                 />
                 <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm text-ink-muted">
-                  <span>Plate 06 — Figure and ground</span>
-                  <span className="label shrink-0 text-gold-ink">AI brand study</span>
+                  <span>Plate {plate.n} — {plate.caption}</span>
+                  <span className="label shrink-0 text-gold-ink">{plate.kindLabel}</span>
                 </figcaption>
               </figure>
               <h2 className="label text-ink-muted">

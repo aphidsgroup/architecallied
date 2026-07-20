@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { studySeries } from "@/content/media";
+import { getPlates } from "@/lib/photos";
 
 /**
  * PLATES — the study series presented as numbered museum plates (pattern
@@ -20,7 +20,7 @@ function Plate({
   large?: boolean;
   className?: string;
 }) {
-  const s = studySeries[index];
+  const s = getPlates()[index];
   return (
     <figure className={className}>
       <div className="relative">
@@ -46,7 +46,7 @@ function Plate({
           <span className="label text-ink-muted">Plate {s.n} · {s.typology}</span>
           <span className="mt-0.5 block font-display text-lg">{s.caption}</span>
         </span>
-        <span className="label shrink-0 text-gold-ink">AI brand study</span>
+        <span className="label shrink-0 text-gold-ink">{s.kindLabel}</span>
       </figcaption>
     </figure>
   );

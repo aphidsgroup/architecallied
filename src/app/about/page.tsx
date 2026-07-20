@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { site } from "@/content/site";
-import { panorama } from "@/content/media";
+import { getPanorama } from "@/lib/photos";
 import { pageMetadata } from "@/lib/metadata";
 import { personJsonLd } from "@/lib/structured-data";
 
@@ -16,6 +16,7 @@ export const metadata = pageMetadata({
  * Verified facts only; description is DRAFT (site.positioning.draft).
  */
 export default function AboutPage() {
+  const pano = getPanorama();
   return (
     <div className="px-6 pb-28 pt-32 md:px-10 md:pt-40">
       <p className="label text-ink-muted">03 — Practice</p>
@@ -68,16 +69,16 @@ export default function AboutPage() {
       {/* Two cities, one datum — abstract panorama (AI brand imagery) */}
       <figure className="mt-24">
         <Image
-          src={panorama.src}
-          alt={panorama.alt}
-          width={panorama.width}
-          height={panorama.height}
+          src={pano.src}
+          alt={pano.alt}
+          width={pano.width}
+          height={pano.height}
           sizes="100vw"
           className="w-full border rule object-cover"
         />
         <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm text-ink-muted">
-          <span>{panorama.caption}</span>
-          <span className="label shrink-0 text-gold-ink">AI brand imagery — not built work</span>
+          <span>{pano.caption}</span>
+          <span className="label shrink-0 text-gold-ink">{pano.kindLabel}</span>
         </figcaption>
       </figure>
 

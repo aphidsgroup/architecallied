@@ -18,7 +18,8 @@ const csp = [
   "default-src 'self'",
   `script-src 'self' 'unsafe-inline'${isProd ? "" : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  // i.ytimg.com: real YouTube video thumbnails in the Screening Room
+  "img-src 'self' data: https://i.ytimg.com",
   "font-src 'self'",
   "connect-src 'self'",
   // Curated films: privacy-enhanced YouTube iframes, loaded only on click

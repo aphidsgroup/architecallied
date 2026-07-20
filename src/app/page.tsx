@@ -2,12 +2,14 @@ import Link from "next/link";
 import { DatumSweep } from "@/components/datum-sweep";
 import { SectionHeading } from "@/components/section-heading";
 import { ClientMarquee } from "@/components/home/client-marquee";
+import { HeroImageTrail } from "@/components/home/hero-image-trail";
 import { PlatesSection } from "@/components/home/plates-section";
 import { ScreeningRoom } from "@/components/home/screening-room";
 import { site } from "@/content/site";
 import { getPublishedProjects } from "@/lib/projects";
 import { ProjectCard } from "@/components/projects/project-card";
 import { pageMetadata } from "@/lib/metadata";
+import { getPlates, getTrailImages } from "@/lib/photos";
 
 export const metadata = pageMetadata({
   title: `${site.name} — Architecture practice, Chennai`,
@@ -26,38 +28,42 @@ export const metadata = pageMetadata({
  */
 export default function HomePage() {
   const selected = getPublishedProjects().slice(0, 3);
+  const trailImages = getTrailImages();
+  const platesArePhotos = getPlates().every((p) => p.isPhoto);
 
   return (
     <>
       {/* HERO — monumental staggered wordmark, corner utilities */}
       <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-20 text-beige md:px-10">
-        <p className="pointer-events-none absolute left-6 top-24 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
+        {/* Cursor image trail — additive overlay; hero composition unchanged */}
+        <HeroImageTrail images={trailImages} />
+        <p className="pointer-events-none absolute left-6 top-24 z-10 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
           Est. Chennai — 13.08°N 80.27°E
         </p>
-        <p className="pointer-events-none absolute right-6 top-24 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:right-10 lg:block">
+        <p className="pointer-events-none absolute right-6 top-24 z-10 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:right-10 lg:block">
           Bhubaneswar — 20.27°N 85.84°E
         </p>
-        <p className="pointer-events-none absolute bottom-10 left-6 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
+        <p className="pointer-events-none absolute bottom-10 left-6 z-10 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
           Principal Architect — {site.principal.name}, {site.principal.qualification}
         </p>
-        <p className="pointer-events-none absolute bottom-10 right-6 hidden text-xs uppercase tracking-[0.2em] text-gold md:right-10 lg:block">
+        <p className="pointer-events-none absolute bottom-10 right-6 z-10 hidden text-xs uppercase tracking-[0.2em] text-gold md:right-10 lg:block">
           Architecture · Interiors · Master Planning
         </p>
 
-        <h1 className="hero-rise hero-rise-1 font-display font-light leading-[0.92] text-cream">
+        <h1 className="hero-rise hero-rise-1 relative z-10 font-display font-light leading-[0.92] text-cream">
           <span className="block text-[clamp(4rem,14vw,12.5rem)]">archi-tec</span>
           <span className="block pl-[8vw] text-[clamp(4rem,14vw,12.5rem)] italic text-gold">
             allied
           </span>
         </h1>
-        <p className="hero-rise hero-rise-2 mt-10 max-w-md text-lg leading-relaxed text-beige md:pl-[8vw]">
+        <p className="hero-rise hero-rise-2 relative z-10 mt-10 max-w-md text-lg leading-relaxed text-beige md:pl-[8vw]">
           {site.positioning.tagline}
         </p>
 
         <svg
           aria-hidden
           viewBox="0 0 1200 60"
-          className="hero-rise hero-rise-3 mt-14 h-8 w-full"
+          className="hero-rise hero-rise-3 relative z-10 mt-14 h-8 w-full"
           preserveAspectRatio="none"
         >
           <path
@@ -134,7 +140,9 @@ export default function HomePage() {
             </SectionHeading>
           </div>
           <p className="label content-end pb-2 text-gold-ink md:col-span-4 md:col-start-9 md:text-right">
-            AI-generated brand imagery — not built work
+            {platesArePhotos
+              ? "Photography — the practice"
+              : "AI-generated brand imagery — not built work"}
           </p>
         </div>
         <div className="mt-14">

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { studySeries } from "@/content/media";
+import type { ResolvedImage } from "@/lib/photos";
 import type { ExpertiseArea } from "@/content/expertise";
 import { cn } from "@/lib/utils";
 
@@ -17,15 +17,17 @@ import { cn } from "@/lib/utils";
 export function ExpertiseIndex({
   areas,
   linkable,
+  stages,
 }: {
   areas: ExpertiseArea[];
   linkable: string[];
+  stages: ResolvedImage[];
 }) {
   const [active, setActive] = useState(0);
   const linkSet = new Set(linkable);
 
   const stage = (i: number, cls?: string) => {
-    const s = studySeries[i];
+    const s = stages[i];
     if (!s) return null;
     return (
       <figure className={cls}>
@@ -39,7 +41,7 @@ export function ExpertiseIndex({
         />
         <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm text-ink-muted">
           <span>Plate {s.n} — {s.caption}</span>
-          <span className="label shrink-0 text-gold-ink">AI brand study</span>
+          <span className="label shrink-0 text-gold-ink">{s.kindLabel}</span>
         </figcaption>
       </figure>
     );

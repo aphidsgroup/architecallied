@@ -2,6 +2,7 @@ import { expertiseAreas, services } from "@/content/expertise";
 import { typologiesWithPublishedWork } from "@/lib/projects";
 import { ExpertiseIndex } from "@/components/expertise/expertise-index";
 import { pageMetadata } from "@/lib/metadata";
+import { getPlates } from "@/lib/photos";
 
 export const metadata = pageMetadata({
   title: "Expertise",
@@ -30,6 +31,7 @@ export default function ExpertisePage() {
         <ExpertiseIndex
           areas={[...expertiseAreas]}
           linkable={typologiesWithPublishedWork()}
+          stages={getPlates()}
         />
       </div>
 

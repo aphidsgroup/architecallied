@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { site } from "@/content/site";
 import { expertiseAreas } from "@/content/expertise";
+import { studySeries } from "@/content/media";
 import {
   filterProjects,
   getLocations,
@@ -104,6 +106,20 @@ export default async function ProjectsPage({
 
             {/* Future structure of the archive, stated honestly */}
             <div className="md:col-span-5 md:col-start-8">
+              <figure className="mb-10">
+                <Image
+                  src={studySeries[5].src}
+                  alt={studySeries[5].alt}
+                  width={studySeries[5].width}
+                  height={studySeries[5].height}
+                  sizes="(min-width: 768px) 40vw, 100vw"
+                  className="aspect-[16/9] w-full border rule object-cover"
+                />
+                <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm text-ink-muted">
+                  <span>Plate 06 — Figure and ground</span>
+                  <span className="label shrink-0 text-gold-ink">AI brand study</span>
+                </figcaption>
+              </figure>
               <h2 className="label text-ink-muted">
                 The archive will be indexed by
               </h2>

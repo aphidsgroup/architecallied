@@ -1,11 +1,10 @@
 import Link from "next/link";
-import Image from "next/image";
 import { DatumSweep } from "@/components/datum-sweep";
 import { SectionHeading } from "@/components/section-heading";
 import { ClientMarquee } from "@/components/home/client-marquee";
-import { FilmCard } from "@/components/home/film-card";
+import { PlatesSection } from "@/components/home/plates-section";
+import { ScreeningRoom } from "@/components/home/screening-room";
 import { site } from "@/content/site";
-import { brandStudies, curatedFilms } from "@/content/media";
 import { getPublishedProjects } from "@/lib/projects";
 import { ProjectCard } from "@/components/projects/project-card";
 import { pageMetadata } from "@/lib/metadata";
@@ -118,47 +117,29 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* STUDIES — AI-generated brand imagery, always captioned as such */}
+      {/* PLATES — the study series (Mobbin-researched museum-plate composition) */}
       <section
-        aria-labelledby="studies-h"
+        aria-labelledby="plates-h"
         className="bg-white px-6 py-28 text-navy md:px-10"
       >
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <div>
-            <p className="label text-ink-muted">Studies</p>
+        <div className="grid gap-6 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <p className="label text-ink-muted">The study series</p>
             <SectionHeading
-              id="studies-h"
+              id="plates-h"
               className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
             >
-              Massing, light and rhythm
+              Plates <em className="text-gold-ink">01–06</em> — massing, light
+              and rhythm
             </SectionHeading>
           </div>
-          <p className="label text-gold-ink">
+          <p className="label content-end pb-2 text-gold-ink md:col-span-4 md:col-start-9 md:text-right">
             AI-generated brand imagery — not built work
           </p>
         </div>
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {brandStudies.map((s, i) => (
-            <li key={s.src} className={i === 1 ? "md:translate-y-10" : undefined}>
-              <figure className="border rule">
-                <Image
-                  src={s.src}
-                  alt={s.alt}
-                  width={s.width}
-                  height={s.height}
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <figcaption className="flex items-baseline justify-between gap-4 px-4 py-3 text-sm text-ink-muted">
-                  <span>{s.caption}</span>
-                  <span aria-hidden className="font-display text-gold-ink">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-14">
+          <PlatesSection />
+        </div>
       </section>
 
       {/* APPROACH — art-book spread on cream */}
@@ -201,34 +182,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FILMS — curated third-party viewing, click-to-load embeds */}
+      {/* SCREENING ROOM — film index controls the stage (A24 pattern via Mobbin) */}
       <section
         aria-labelledby="films-h"
         className="surface-dark bg-navy px-6 py-28 text-beige md:px-10"
       >
-        <div className="flex flex-wrap items-baseline justify-between gap-4">
-          <div>
-            <p className="label text-gold">Films</p>
-            <SectionHeading
-              id="films-h"
-              className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight text-cream"
-            >
-              Watching, thinking, building
-            </SectionHeading>
-          </div>
-          <p className="max-w-sm text-sm text-beige-muted">
-            A short list of films on architecture we return to — curated
-            viewing from other voices, not our own work. Videos load from
-            YouTube only when you press play.
-          </p>
+        <p className="label text-gold">Screening room</p>
+        <SectionHeading
+          id="films-h"
+          className="mt-4 max-w-2xl font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight text-cream"
+        >
+          Watching, thinking, <em className="text-gold">building</em>
+        </SectionHeading>
+        <div className="mt-14">
+          <ScreeningRoom />
         </div>
-        <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {curatedFilms.map((film) => (
-            <li key={film.youtubeId}>
-              <FilmCard film={film} />
-            </li>
-          ))}
-        </ul>
       </section>
 
       {/* OUR CLIENTS — running logo rows (R→L / L→R / R→L) */}

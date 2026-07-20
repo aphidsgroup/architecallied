@@ -1,4 +1,6 @@
+import Image from "next/image";
 import { site } from "@/content/site";
+import { panorama } from "@/content/media";
 import { pageMetadata } from "@/lib/metadata";
 import { personJsonLd } from "@/lib/structured-data";
 
@@ -62,6 +64,22 @@ export default function AboutPage() {
           <div className="border-t rule" />
         </dl>
       </div>
+
+      {/* Two cities, one datum — abstract panorama (AI brand imagery) */}
+      <figure className="mt-24">
+        <Image
+          src={panorama.src}
+          alt={panorama.alt}
+          width={panorama.width}
+          height={panorama.height}
+          sizes="100vw"
+          className="w-full border rule object-cover"
+        />
+        <figcaption className="mt-3 flex items-baseline justify-between gap-4 text-sm text-ink-muted">
+          <span>{panorama.caption}</span>
+          <span className="label shrink-0 text-gold-ink">AI brand imagery — not built work</span>
+        </figcaption>
+      </figure>
 
       <script
         type="application/ld+json"

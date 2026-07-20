@@ -16,37 +16,41 @@
  * outstanding permissions remain tracked in src/content/client-review.ts.
  */
 
-export interface BrandStudy {
+export interface Study {
+  /** Series index — a real sequence: one study per practice typology. */
+  n: string;
+  typology: string;
   src: string;
   alt: string;
   caption: string;
   width: number;
   height: number;
+  /** Dominant field, used to pick overlay treatment. */
+  tone: "light" | "dark";
 }
 
-export const brandStudies: BrandStudy[] = [
-  {
-    src: "/images/brand/study-elevation.png",
-    alt: "Abstract study of two navy building volumes with a gold datum line against an evening-toned field",
-    caption: "Elevation study I — massing and datum",
-    width: 1600,
-    height: 1200,
-  },
-  {
-    src: "/images/brand/study-courtyard.png",
-    alt: "Abstract study of courtyard light: a beige wedge of light cutting across a deep navy field",
-    caption: "Study II — courtyard light",
-    width: 1600,
-    height: 1200,
-  },
-  {
-    src: "/images/brand/study-screen.png",
-    alt: "Abstract study of a rhythmic vertical screen of navy fins over a cream field",
-    caption: "Study III — screen rhythm",
-    width: 1600,
-    height: 1200,
-  },
+/**
+ * THE STUDY SERIES — six AI-generated compositions, one per typology.
+ * A genuine sequence (structure encodes the practice's expertise), used
+ * consistently: plates on Home, the study stage on Expertise, and the
+ * archive plate on Projects. Always captioned as AI brand imagery.
+ */
+export const studySeries: Study[] = [
+  { n: "01", typology: "Residential", src: "/images/brand/study-01-residential.png", alt: "Abstract study of a courtyard house: two navy volumes around a lit court with a tree circle and gold ground datum", caption: "Courtyard light", width: 1600, height: 1200, tone: "light" },
+  { n: "02", typology: "Commercial", src: "/images/brand/study-02-commercial.png", alt: "Abstract study of an office tower at dusk: mullioned navy shaft with a gold sky-lobby band", caption: "Tower rhythm", width: 1600, height: 1200, tone: "dark" },
+  { n: "03", typology: "Institutional", src: "/images/brand/study-03-institutional.png", alt: "Abstract study of a colonnade: navy piers with deep shadow returns beneath a long entablature and sun disc", caption: "Colonnade", width: 1600, height: 1200, tone: "light" },
+  { n: "04", typology: "Industrial", src: "/images/brand/study-04-industrial.png", alt: "Abstract study of sawtooth industrial sheds with north-light roofs over a long plinth of openings", caption: "North light", width: 1600, height: 1200, tone: "light" },
+  { n: "05", typology: "Interiors", src: "/images/brand/study-05-interiors.png", alt: "Abstract study of an interior: a tall window of light and a floating stair in a deep navy room", caption: "Room of light", width: 1600, height: 1200, tone: "dark" },
+  { n: "06", typology: "Master Planning", src: "/images/brand/study-06-planning.png", alt: "Abstract figure-ground plan study: navy city blocks around a circular park crossed by a gold axis", caption: "Figure and ground", width: 1600, height: 1200, tone: "light" },
 ];
+
+export const panorama = {
+  src: "/images/brand/panorama-two-cities.png",
+  alt: "Abstract night panorama of two skylines — Chennai and Bhubaneswar — joined by a single gold datum line stepping at 45 degrees",
+  caption: "Two cities, one datum — Chennai · Bhubaneswar",
+  width: 2400,
+  height: 800,
+} as const;
 
 export interface Film {
   /** YouTube video ID, embedded via youtube-nocookie.com on user click only. */

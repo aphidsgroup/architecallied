@@ -13,9 +13,13 @@ gsap.registerPlugin(useGSAP);
  * autoAlpha-only tweens, scoped useGSAP with automatic cleanup).
  *
  * Strictly additive: the hero composition is unchanged; this is an
- * absolutely positioned, pointer-events-none overlay. Active only when
- * (pointer: fine) and (min-width: 1024px) and motion is not reduced —
- * touch, mobile and reduced-motion users never see it.
+ * absolutely positioned, pointer-events-none overlay.
+ * - Fine pointers (desktop mice/trackpads): images spawn along the cursor.
+ * - Touch devices: a PASSIVE touchmove listener spawns smaller images at
+ *   the thumb's position — scrolling is never intercepted or blocked
+ *   (no preventDefault; listener registered { passive: true }), and the
+ *   pool/spawn rate is reduced for mid-range phones.
+ * - prefers-reduced-motion: the effect does not run at all.
  *
  * Image sources come from the photo pipeline (lib/photos.ts): AI study
  * plates today, the practice's real photographs automatically once they
@@ -39,11 +43,17 @@ export function HeroImageTrail({
 
       const mm = gsap.matchMedia();
       mm.add(
-        "(pointer: fine) and (min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+        "(prefers-reduced-motion: no-preference)",
         () => {
+          const coarse = window.matchMedia("(pointer: coarse)").matches;
+          // Touch devices get a smaller pool and a shorter spawn distance so
+          // a thumb swipe produces a visible trail while staying smooth on
+          // mid-range phones.
+          const spawnDistance = coarse ? 110 : SPAWN_DISTANCE;
+          const maxPool = coarse ? 4 : POOL;
           const items = Array.from(
             container.querySelectorAll<HTMLElement>("[data-trail]"),
-          );
+          ).slice(0, maxPool);
           let last = { x: -9999, y: -9999 };
           let slot = 0;
           let imgIndex = 0;
@@ -89,18 +99,31 @@ export function HeroImageTrail({
               );
           };
 
-          const onMove = (e: MouseEvent) => {
+          const handlePoint = (clientX: number, clientY: number) => {
             const r = hero.getBoundingClientRect();
-            const x = e.clientX - r.left;
-            const y = e.clientY - r.top;
-            if (Math.hypot(x - last.x, y - last.y) > SPAWN_DISTANCE) {
+            const x = clientX - r.left;
+            const y = clientY - r.top;
+            if (Math.hypot(x - last.x, y - last.y) > spawnDistance) {
               last = { x, y };
               spawn(x, y);
             }
           };
 
+          const onMove = (e: MouseEvent) => handlePoint(e.clientX, e.clientY);
+          // PASSIVE: never blocks or delays native scrolling on touch.
+          const onTouch = (e: TouchEvent) => {
+            const t = e.touches[0];
+            if (t) handlePoint(t.clientX, t.clientY);
+          };
+
           hero.addEventListener("mousemove", onMove);
-          return () => hero.removeEventListener("mousemove", onMove);
+          hero.addEventListener("touchmove", onTouch, { passive: true });
+          hero.addEventListener("touchstart", onTouch, { passive: true });
+          return () => {
+            hero.removeEventListener("mousemove", onMove);
+            hero.removeEventListener("touchmove", onTouch);
+            hero.removeEventListener("touchstart", onTouch);
+          };
         },
       );
       return () => mm.revert();
@@ -112,13 +135,13 @@ export function HeroImageTrail({
     <div
       ref={ref}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 z-[5] hidden overflow-hidden lg:block"
+      className="pointer-events-none absolute inset-0 z-[5] overflow-hidden"
     >
       {Array.from({ length: POOL }).map((_, i) => (
         <div
           key={i}
           data-trail
-          className="invisible absolute left-0 top-0 w-56 border border-beige/25 opacity-0 shadow-none"
+          className="invisible absolute left-0 top-0 w-36 border border-beige/25 opacity-0 shadow-none md:w-56"
         >
           {/* Plain img: sources swap rapidly from a tiny local set; no
               next/image optimisation round-trips needed for a 224px ghost. */}

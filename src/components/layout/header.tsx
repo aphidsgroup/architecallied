@@ -93,7 +93,7 @@ export function Header() {
               lightText ? "text-beige hover:text-gold" : "text-navy hover:text-gold-ink",
             )}
           >
-            Menu
+            Explore
             <span aria-hidden className="block h-px w-10 bg-gold" />
           </DialogPrimitive.Trigger>
         </div>
@@ -103,7 +103,7 @@ export function Header() {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-[60] bg-navy" />
         <DialogPrimitive.Content className="surface-dark fixed inset-0 z-[60] overflow-y-auto bg-navy focus:outline-none">
-          <DialogPrimitive.Title className="sr-only">Menu</DialogPrimitive.Title>
+          <DialogPrimitive.Title className="sr-only">Explore</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">
             Site navigation. Press Escape to close.
           </DialogPrimitive.Description>

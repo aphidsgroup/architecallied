@@ -61,7 +61,10 @@ export function Header() {
         lightText && "surface-dark",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 md:h-24 md:px-8">
+      {/* Full-bleed: logo at the far-left corner, nav at the far-right —
+          aligned with the hero coordinates and page content (px-6 md:px-10),
+          not centred in a narrower max-width container. */}
+      <div className="flex h-20 items-center justify-between px-6 md:h-24 md:px-10">
         <Link
           href="/"
           aria-label={`${site.name} — home`}
@@ -130,7 +133,7 @@ export function Header() {
       {/* Mobile disclosure panel */}
       {open && (
         <div id="mobile-nav" className="border-t rule bg-cream lg:hidden">
-          <nav aria-label="Mobile" className="mx-auto max-w-[1440px] px-4 py-4">
+          <nav aria-label="Mobile" className="px-6 py-4 md:px-10">
             <ul className="flex flex-col">
               {nav.map((item) => {
                 const active = pathname.startsWith(item.href);

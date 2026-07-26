@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { BackToTop } from "@/components/back-to-top";
+import { WhatsAppButton } from "@/components/whatsapp-button";
 import { site } from "@/content/site";
 import { absoluteUrl, SITE_URL } from "@/lib/metadata";
 import { organizationJsonLd } from "@/lib/structured-data";
@@ -77,6 +78,7 @@ export default function RootLayout({
         <Header />
         <main id="main">{children}</main>
         <Footer />
+        <WhatsAppButton />
         <BackToTop />
         <script
           type="application/ld+json"

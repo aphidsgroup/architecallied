@@ -49,6 +49,12 @@ export const site = {
   },
   /** Until client publication permissions are confirmed. */
   clientStatement: "Client credentials are available on request.",
+  /** Floating WhatsApp enquiry button. Number: +91 94441 17173. */
+  whatsapp: {
+    number: "919444117173",
+    display: "+91 94441 17173",
+    message: "Hi Archi-tec Allied, I would like to make an enquiry.",
+  },
   /**
    * Social profiles shown in the footer. TODO — replace the "#" placeholders
    * with the practice's real profile URLs (CONTENT_REQUIRED.md); the icons

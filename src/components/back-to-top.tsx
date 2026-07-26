@@ -8,7 +8,8 @@ import { ArrowUpIcon } from "lucide-react";
  * (translucent navy glass, gold arrow, fine beige rule). Appears fixed at
  * the bottom-right after scrolling past one viewport; scrolls smoothly to
  * the top (instantly under prefers-reduced-motion). Sits below the header
- * (z-40 < header z-50).
+ * (z-40 < header z-50) and is raised to bottom-24 so it stacks ABOVE the
+ * always-visible WhatsApp button (bottom-6) without overlapping it.
  */
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -32,7 +33,7 @@ export function BackToTop() {
       aria-label="Back to top"
       tabIndex={visible ? 0 : -1}
       className={[
-        "fixed bottom-6 right-6 z-40 inline-flex size-12 items-center justify-center md:size-14",
+        "fixed bottom-24 right-6 z-40 inline-flex size-12 items-center justify-center md:size-14",
         // glassmorphism in brand palette
         "rounded-full border border-beige/25 bg-navy/30 text-gold shadow-lg shadow-navy/20 backdrop-blur-md",
         "transition-all duration-300 hover:border-gold/50 hover:bg-navy/50 hover:text-gold",

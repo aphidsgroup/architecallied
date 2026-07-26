@@ -54,9 +54,19 @@ export function Header() {
         )}
       >
         <div className="flex h-20 items-center justify-between px-6 md:h-24 md:px-10">
-          <Link
+          {/* Full reload to the homepage from anywhere — a plain anchor +
+              forced navigation, so the site loads fresh ("like newly opened",
+              hero animations replay) rather than an in-app SPA transition.
+              The full document load is intentional, so the Next.js Link rule
+              is disabled here on purpose. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a
             href="/"
-            aria-label={`${site.name} — home`}
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.assign("/");
+            }}
+            aria-label={`${site.name} — home (reload)`}
             className="flex items-center gap-3 md:gap-4"
           >
             <Image
@@ -75,7 +85,7 @@ export function Header() {
             >
               {site.displayName}
             </span>
-          </Link>
+          </a>
 
           <DialogPrimitive.Trigger
             className={cn(
@@ -100,13 +110,23 @@ export function Header() {
 
           <div className="flex min-h-svh flex-col px-6 py-6 md:px-10">
             <div className="flex items-center justify-between">
-              <Image
-                src="/brand/logo-gold.png"
-                alt="archi-tec allied"
-                width={160}
-                height={80}
-                className="h-12 w-auto md:h-[4.25rem]"
-              />
+              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.assign("/");
+                }}
+                aria-label={`${site.name} — home (reload)`}
+              >
+                <Image
+                  src="/brand/logo-gold.png"
+                  alt=""
+                  width={160}
+                  height={80}
+                  className="h-12 w-auto md:h-[4.25rem]"
+                />
+              </a>
               <DialogPrimitive.Close className="label flex min-h-11 items-center gap-3 text-beige hover:text-gold">
                 Close
                 <span aria-hidden className="block h-px w-10 bg-gold" />

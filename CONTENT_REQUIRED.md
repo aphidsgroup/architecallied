@@ -9,7 +9,7 @@ The practice supplied its real portfolio (17 projects, 100 photos/renders, proje
 - **Malar / Maharishi / BARC / entry-arch write-ups** — these have brief descriptions only; expand if desired.
 - **Draft positioning copy** — hero tagline and About description remain draft (src/content/site.ts) pending final wording.
 - **SITE_URL** — set the production domain before deployment.
-- **Footer social icons / credit line (optional)** — the reference footers on deck slide 132 show social icons and a "designed by / powered by" credit. These are not yet added because no social profile URLs or credit text were supplied; provide handles/links and I will add them to the footer in the same style.
+- **Footer social profile URLs** — the five social icons (Instagram, Facebook, X, YouTube, LinkedIn) are now shown in the footer copyright bar at the client's request. Their links are placeholder "#" values in `src/content/site.ts` (`site.social`); replace each `href` with the practice's real profile URL. Icons with a real URL open in a new tab; "#" placeholders are inert.
 
 ---
 

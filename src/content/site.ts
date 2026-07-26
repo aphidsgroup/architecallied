@@ -49,7 +49,21 @@ export const site = {
   },
   /** Until client publication permissions are confirmed. */
   clientStatement: "Client credentials are available on request.",
+  /**
+   * Social profiles shown in the footer. TODO — replace the "#" placeholders
+   * with the practice's real profile URLs (CONTENT_REQUIRED.md); the icons
+   * are displayed now at the client's request.
+   */
+  social: [
+    { platform: "instagram", label: "Instagram", href: "#" },
+    { platform: "facebook", label: "Facebook", href: "#" },
+    { platform: "x", label: "X", href: "#" },
+    { platform: "youtube", label: "YouTube", href: "#" },
+    { platform: "linkedin", label: "LinkedIn", href: "#" },
+  ],
 } as const;
+
+export type SocialPlatform = (typeof site.social)[number]["platform"];
 
 export const nav = [
   { label: "Projects", href: "/projects" },

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { nav, site } from "@/content/site";
+import { SocialLinks } from "@/components/social-links";
 
 /**
  * Direction A colophon footer — the conclusion of every page: the practice
@@ -76,9 +77,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Client correction (deck slide 132): principal-architect name removed
-            from the footer bar; only the logo and copyright line remain. */}
-        <div className="mt-16 flex flex-col justify-between gap-6 border-t border-beige/10 pt-8 md:flex-row md:items-end">
+        {/* Copyright bar: logo, social icons, copyright line
+            (principal-architect name removed per deck slide 132). */}
+        <div className="mt-16 flex flex-col gap-8 border-t border-beige/10 pt-8 md:flex-row md:items-center md:justify-between">
           <Image
             src="/brand/logo-gold.png"
             alt="archi-tec allied"
@@ -86,6 +87,7 @@ export function Footer() {
             height={60}
             className="h-10 w-auto object-contain object-left"
           />
+          <SocialLinks className="-mx-2 flex items-center gap-1 md:mx-0 md:gap-2" />
           <p className="text-xs uppercase tracking-[0.2em] text-beige-muted">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

@@ -11,9 +11,10 @@ import { getPublishedProjects } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
 /**
- * Version 2.0 navigation (client correction, deck slides 132–134):
- * a PERSISTENT top navigation bar on every page — scaled-up logo, no
- * wordmark text ("name to be removed"), horizontal links, sticky while
+ * Version 2.0 navigation (client correction, deck slides 133–134):
+ * a PERSISTENT top navigation bar on every page — scaled-up logo AND
+ * wordmark ("logo size to be scaled up"), horizontal links replacing the
+ * old "Index" menu ("alternate option instead Index"), sticky while
  * scrolling ("column on top of every page scrolling").
  *
  * - At the top of the home hero the bar is transparent with light text;
@@ -61,15 +62,27 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-20 max-w-[1440px] items-center justify-between px-4 md:h-24 md:px-8">
-        <Link href="/" aria-label={`${site.name} — home`} className="flex items-center">
+        <Link
+          href="/"
+          aria-label={`${site.name} — home`}
+          className="flex items-center gap-3 md:gap-4"
+        >
           <Image
             src={lightText ? "/brand/logo-gold.png" : "/brand/logo-black.png"}
-            alt={site.name}
-            width={132}
-            height={66}
+            alt=""
+            width={160}
+            height={80}
             priority
-            className="h-11 w-auto md:h-14"
+            className="h-12 w-auto md:h-[4.25rem]"
           />
+          <span
+            className={cn(
+              "text-2xl lowercase leading-none tracking-wide md:text-3xl",
+              lightText ? "text-beige" : "text-navy",
+            )}
+          >
+            {site.displayName}
+          </span>
         </Link>
 
         {/* Desktop nav */}

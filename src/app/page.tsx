@@ -7,9 +7,8 @@ import { PlatesSection } from "@/components/home/plates-section";
 import { ScreeningRoom } from "@/components/home/screening-room";
 import { site } from "@/content/site";
 import { getPublishedProjects } from "@/lib/projects";
-import { ProjectCard } from "@/components/projects/project-card";
 import { pageMetadata } from "@/lib/metadata";
-import { getPlates, getTrailImages } from "@/lib/photos";
+import { getTrailImages } from "@/lib/photos";
 
 export const metadata = pageMetadata({
   title: `${site.name} — Architecture practice, Chennai`,
@@ -27,14 +26,13 @@ export const metadata = pageMetadata({
  * City coordinates are public, city-level geographic facts.
  */
 export default function HomePage() {
-  const selected = getPublishedProjects().slice(0, 3);
+  const projectCount = getPublishedProjects().length;
   const trailImages = getTrailImages();
-  const platesArePhotos = getPlates().every((p) => p.isPhoto);
 
   return (
     <>
       {/* HERO — monumental staggered wordmark, corner utilities */}
-      <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-20 text-beige md:px-10">
+      <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-28 text-beige md:px-10 md:pt-32">
         {/* Cursor image trail — additive overlay; hero composition unchanged */}
         <HeroImageTrail images={trailImages} />
         <p className="pointer-events-none absolute left-6 top-24 z-10 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
@@ -50,13 +48,13 @@ export default function HomePage() {
           Architecture · Interiors · Master Planning
         </p>
 
-        <h1 className="hero-rise hero-rise-1 relative z-10 font-display font-light leading-[0.92] text-cream">
-          <span className="block text-[clamp(4rem,14vw,12.5rem)]">archi-tec</span>
-          <span className="block pl-[8vw] text-[clamp(4rem,14vw,12.5rem)] italic text-gold">
+        <h1 className="hero-rise hero-rise-1 relative z-10 font-display font-light leading-[0.9] text-cream">
+          <span className="block text-[clamp(4.5rem,16vw,15rem)]">archi-tec</span>
+          <span className="block pl-[8vw] text-[clamp(4.5rem,16vw,15rem)] italic text-gold">
             allied
           </span>
         </h1>
-        <p className="hero-rise hero-rise-2 relative z-10 mt-10 max-w-md text-lg leading-relaxed text-beige md:pl-[8vw]">
+        <p className="hero-rise hero-rise-2 relative z-10 mt-10 max-w-xl text-xl leading-relaxed text-beige md:pl-[8vw] md:text-2xl">
           {site.positioning.tagline}
         </p>
 
@@ -87,8 +85,8 @@ export default function HomePage() {
         </h2>
         <ol className="mt-10">
           {[
-            ["01", "Selected work", "A curated archive is in preparation. Documentation and photography under review.", "/projects"],
-            ["02", "Expertise", "Residential to master planning — six typologies, one method.", "/expertise"],
+            ["01", "Selected work", `${projectCount} projects across railway stations, civic buildings, housing and public infrastructure.`, "/projects"],
+            ["02", "Expertise", "Seven categories, from station redevelopment to sports and market complexes.", "/expertise"],
             ["03", "Practice", `Led by ${site.principal.name}, ${site.principal.qualification}. Chennai and Bhubaneswar.`, "/about"],
             ["04", "Enquiries", "Client credentials are available on request.", "/contact"],
           ].map(([n, title, sub, href]) => (
@@ -111,38 +109,26 @@ export default function HomePage() {
           ))}
         </ol>
 
-        {/* Selected work cards appear here once real projects are published */}
-        {selected.length > 0 && (
-          <ul className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {selected.map((p) => (
-              <li key={p.slug}>
-                <ProjectCard project={p} />
-              </li>
-            ))}
-          </ul>
-        )}
       </section>
 
-      {/* PLATES — the study series (Mobbin-researched museum-plate composition) */}
+      {/* SELECTED WORK — real projects as museum plates */}
       <section
         aria-labelledby="plates-h"
         className="bg-white px-6 py-28 text-navy md:px-10"
       >
         <div className="grid gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
-            <p className="label text-ink-muted">The study series</p>
+            <p className="label text-ink-muted">Selected work</p>
             <SectionHeading
               id="plates-h"
               className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
             >
-              Plates <em className="text-gold-ink">01–06</em> — massing, light
-              and rhythm
+              Building the public realm across{" "}
+              <em className="text-gold-ink">India</em>
             </SectionHeading>
           </div>
           <p className="label content-end pb-2 text-gold-ink md:col-span-4 md:col-start-9 md:text-right">
-            {platesArePhotos
-              ? "Photography — the practice"
-              : "AI-generated brand imagery — not built work"}
+            From the practice portfolio
           </p>
         </div>
         <div className="mt-14">
@@ -195,12 +181,12 @@ export default function HomePage() {
         aria-labelledby="films-h"
         className="surface-dark bg-navy px-6 py-28 text-beige md:px-10"
       >
-        <p className="label text-gold">Screening room</p>
+        <p className="label text-gold">Project films</p>
         <SectionHeading
           id="films-h"
           className="mt-4 max-w-2xl font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight text-cream"
         >
-          Watching, thinking, <em className="text-gold">building</em>
+          The work, <em className="text-gold">in motion</em>
         </SectionHeading>
         <div className="mt-14">
           <ScreeningRoom />

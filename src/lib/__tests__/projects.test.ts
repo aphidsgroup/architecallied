@@ -11,7 +11,7 @@ const make = (over: Partial<Project>): Project => ({
   slug: "s",
   title: "t",
   location: "Chennai",
-  typology: "Residential",
+  typology: "Group Housing",
   status: "Completed",
   images: [],
   published: true,
@@ -23,10 +23,10 @@ describe("parseFilters", () => {
   it("accepts valid values", () => {
     expect(
       parseFilters(
-        { typology: "Residential", location: "Chennai", status: "Design" },
+        { typology: "Group Housing", location: "Chennai", status: "Tender Stage" },
         locations,
       ),
-    ).toEqual({ typology: "Residential", location: "Chennai", status: "Design" });
+    ).toEqual({ typology: "Group Housing", location: "Chennai", status: "Tender Stage" });
   });
   it("drops unknown/malicious values", () => {
     expect(
@@ -38,22 +38,22 @@ describe("parseFilters", () => {
   });
   it("takes first value of arrays", () => {
     expect(
-      parseFilters({ typology: ["Commercial", "Residential"] }, locations)
+      parseFilters({ typology: ["Office Buildings", "Group Housing"] }, locations)
         .typology,
-    ).toBe("Commercial");
+    ).toBe("Office Buildings");
   });
 });
 
 describe("filterProjects", () => {
   const projects = [
-    make({ slug: "a", typology: "Residential", location: "Chennai", status: "Completed" }),
-    make({ slug: "b", typology: "Commercial", location: "Bhubaneswar", status: "Design" }),
+    make({ slug: "a", typology: "Group Housing", location: "Chennai", status: "Completed" }),
+    make({ slug: "b", typology: "Office Buildings", location: "Bhubaneswar", status: "Tender Stage" }),
   ];
   it("filters by each dimension and combines", () => {
-    expect(filterProjects(projects, { typology: "Commercial" })).toHaveLength(1);
+    expect(filterProjects(projects, { typology: "Office Buildings" })).toHaveLength(1);
     expect(filterProjects(projects, { location: "Chennai" })[0].slug).toBe("a");
     expect(
-      filterProjects(projects, { typology: "Residential", status: "Design" }),
+      filterProjects(projects, { typology: "Group Housing", status: "Tender Stage" }),
     ).toHaveLength(0);
     expect(filterProjects(projects, {})).toHaveLength(2);
   });
@@ -67,8 +67,8 @@ describe("getLocations / buildFilterQuery", () => {
   });
   it("builds a canonical query string", () => {
     expect(buildFilterQuery({})).toBe("");
-    expect(buildFilterQuery({ typology: "Residential", status: "Design" })).toBe(
-      "?typology=Residential&status=Design",
+    expect(buildFilterQuery({ typology: "Group Housing", status: "Tender Stage" })).toBe(
+      "?typology=Group+Housing&status=Tender+Stage",
     );
   });
 });

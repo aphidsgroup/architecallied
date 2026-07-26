@@ -144,13 +144,17 @@ export function HeroImageTrail({
           className="invisible absolute left-0 top-0 w-36 border border-beige/25 opacity-0 shadow-none md:w-56"
         >
           {/* Plain img: sources swap rapidly from a tiny local set; no
-              next/image optimisation round-trips needed for a 224px ghost. */}
+              next/image optimisation round-trips needed for a 224px ghost.
+              Starts blank so nothing is decoded until the trail spawns. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={images[0]?.src}
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            data-src={images[0]?.src}
             alt=""
             width={224}
             height={168}
+            loading="lazy"
+            decoding="async"
             className="block aspect-[4/3] w-full object-cover"
           />
         </div>

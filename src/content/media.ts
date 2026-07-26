@@ -62,19 +62,19 @@ export interface Film {
 
 export const curatedFilms: Film[] = [
   {
-    youtubeId: "4AYE3w5TWHs",
-    title: "3 warp-speed architecture tales",
-    attribution: "Bjarke Ingels — TED",
+    youtubeId: "Wx2m2Z-r0qI",
+    title: "Railway station redevelopment — walkthrough",
+    attribution: "Project film",
   },
   {
-    youtubeId: "iQsnObyii4Q",
-    title: "Why great architecture should tell a story",
-    attribution: "Ole Scheeren — TED",
+    youtubeId: "Vo2QY_Gllc0",
+    title: "Station modernisation — overview",
+    attribution: "Project film",
   },
   {
-    youtubeId: "dSsfIEcg3Mo",
-    title: "The Promise — Architect B.V. Doshi (trailer)",
-    attribution: "Official documentary trailer",
+    youtubeId: "q-Cf7FmNdj4",
+    title: "Amrit Bharat stations — project film",
+    attribution: "Project film",
   },
 ];
 
@@ -122,4 +122,7 @@ export const clientLogos: ClientLogo[] = [
   { src: "/images/clients/client-34.png", name: "UCAL Fuel Systems Ltd" },
   { src: "/images/clients/client-35.png", name: "Periyar Maniammai University" },
   { src: "/images/clients/client-36.png", name: "URC" },
+  { src: "/images/clients/client-37.png", name: "Tamilnad Mercantile Bank" },
+  { src: "/images/clients/client-38.png", name: "B.C. Bhuyan Construction (BCBCPL)" },
+  { src: "/images/clients/client-39.png", name: "KMV Projects Ltd" },
 ];

@@ -61,8 +61,8 @@ export function ScreeningRoom() {
           </li>
         ))}
         <li className="pt-5 text-sm text-beige-muted">
-          Curated viewing from other voices — not our own work. Films load
-          from YouTube only when you press play.
+          Films of the practice&apos;s projects, as featured in the project
+          record. Video loads from YouTube only when you press play.
         </li>
       </ol>
 

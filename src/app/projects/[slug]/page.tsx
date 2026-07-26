@@ -73,13 +73,17 @@ export default async function ProjectPage({
   const banner = project.images[0];
 
   const meta: [string, string | undefined][] = [
-    ["Typology", project.typology],
+    ["Category", project.typology],
     ["Location", project.location],
     ["Client", project.client],
+    ["Contractor", project.contractor],
     ["Status", project.status],
     ["Year", project.year?.toString()],
     ["Site area", project.siteArea],
     ["Built-up area", project.builtUpArea],
+    ["Configuration", project.configuration],
+    ["Project cost", project.projectCost],
+    ["Green rating", project.greenRating],
     ["Services", project.services?.join(", ")],
   ];
 

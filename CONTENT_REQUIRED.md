@@ -1,4 +1,18 @@
-# CONTENT_REQUIRED — Archi-tec Allied website
+# CONTENT REQUIRED — Archi-tec Allied
+
+## Version 2.0 status (2026-07-26)
+The practice supplied its real portfolio (17 projects, 100 photos/renders, project films and new client logos), now published across the site. Remaining follow-ups:
+
+- **Coopers Concept Foundation commercial complex (Chennai)** — named in the deck but no usable images/write-up were included; add photos + description to publish it as the 18th project.
+- **Project film titles** — the three Screening Room videos are labelled generically ("Railway station redevelopment" etc.); confirm exact titles/attribution, or supply the practice's own showreel to replace them.
+- **Client-logo permissions** — written permission still advisable for all marquee logos (src/content/client-review.ts), now including TMB, BCBCPL and KMV.
+- **Malar / Maharishi / BARC / entry-arch write-ups** — these have brief descriptions only; expand if desired.
+- **Draft positioning copy** — hero tagline and About description remain draft (src/content/site.ts) pending final wording.
+- **SITE_URL** — set the production domain before deployment.
+
+---
+
+ — Archi-tec Allied website
 
 Items the practice must supply or confirm before the related content can be published. Nothing below has been invented; missing items use honest empty states or draft-marked copy.
 

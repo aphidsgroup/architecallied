@@ -117,3 +117,25 @@ Template resemblance removed (hero, nav, sections, footer all authored) ✓ · m
 
 # Media addendum (2026-07-20, later)
 Added at client instruction: (1) **Studies** — three AI-generated abstract brand compositions (procedurally generated in-palette; captioned "AI-generated brand imagery — not built work"); (2) **Films** — three verified third-party architecture films (TED × 2, B.V. Doshi documentary trailer) as click-to-load youtube-nocookie embeds behind authored navy poster cards (CSP: frame-src youtube-nocookie.com added; no thumbnail/img-src widening; zero CSP violations verified with an active embed); (3) **Our Clients marquee** — 36 logos sliced from the practice's own presentation strips, three continuously running rows (R→L / L→R / R→L), pause on hover/focus, duplicate sets aria-hidden, reduced-motion renders a static wrapped grid (verified). Client-permission tracking updated: logos now displayed at practice instruction, confirmations still outstanding. Lint/type/build clean; marquee direction, hover-pause, embed load and reduced-motion behaviour all verified in headless Chromium.
+
+---
+
+# Version 2.0 — real portfolio + client corrections (2026-07-26)
+
+## Client "Version 2.0 corrections" pack analysed
+OFFICE WEBSITE.pptx (134 slides, 209 media incl. a 506 MB film), plus loose logos (TMB, BCBCPL, KMV). Full text + media inventory extracted and visually inspected.
+
+## Delivered
+- **17 real projects published** with verified write-ups (client, contractor, area, cost, status, GRIHA rating) and 100 optimised photos/renders (public/images/projects/, 23 MB). Categories set to the practice's real menu: Railway Stations, Office Buildings, Group Housing, Sports Complex, Market Complex, Educational, Urban Development. Statuses: Completed / Ongoing / Tender Stage.
+- **Projects archive** is now a real filterable index (category/location/status, URL-persisted) — 17 cards; filter "Railway Stations" → 5 projects (verified). Project detail pages render banner, full metadata rail, narrative and real photo galleries; 17 static routes + 23-URL sitemap.
+- **Persistent top navigation** (correction, slides 132–134): sticky bar on every page, scaled-up logo, wordmark text removed, transparent-over-hero → solid cream on scroll; mobile disclosure panel with 7 category quick-links, Escape-to-close. Hero type scaled up.
+- **Real imagery everywhere**: home Selected Work plates, Expertise stage, About panorama and hero cursor-trail all now use real project photography (lib/photos.ts resolves projects first, AI studies only as fallback). Hero trail uses lightweight ~480px WebP thumbnails for performance.
+- **New client logos** (TMB, BCBCPL, KMV) added to the marquee (now 39 logos). **Project films** swapped to the three project videos referenced in the deck.
+
+## Verification (clean state)
+- pnpm install --frozen-lockfile ✓ · type-check 0 ✓ · lint 0 ✓ · tests 9/9 ✓ · build ✓ (17 project pages, 23 sitemap URLs)
+- Functional: first Tab = skip link; nav sticky + solid-on-scroll; 17 cards; filter → URL state + "5 projects"; mobile panel opens with 7 categories, Escape closes; zero console/CSP errors (excluding sandbox-blocked i.ytimg thumbnails, which load in real browsers).
+- Lighthouse home: Accessibility 100, SEO 100, Best-Practices 96, Performance 73–89 across runs (image-rich page under sandbox CPU throttling; production CDN expected ≥90). Earlier text-only pages remain ≥95.
+
+## Known limitations / follow-ups
+See CONTENT_REQUIRED.md: 18th project (Coopers) awaiting assets; project-film titles to confirm; logo permissions; SITE_URL before deploy.

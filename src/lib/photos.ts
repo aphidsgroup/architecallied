@@ -1,107 +1,114 @@
-import fs from "node:fs";
-import path from "node:path";
 import { studySeries, panorama } from "@/content/media";
+import { expertiseAreas } from "@/content/expertise";
+import { getPublishedProjects } from "@/lib/projects";
+import type { Project } from "@/content/projects";
 
 /**
- * PHOTO PIPELINE — real photography drop-in system (server-only).
+ * IMAGERY RESOLVER (Version 2.0).
  *
- * Real architectural photographs cannot be sourced from the build
- * environment (external image hosts are unreachable) and must not be
- * fabricated. Instead, every imagery slot on the site resolves through
- * this module: if a correctly named file exists in /public/images/photos/,
- * the REAL PHOTO is used everywhere automatically on the next build/dev
- * reload; otherwise the slot falls back to the AI-generated study plate.
- *
- * To switch the whole site to real photography, drop these files in
- * /public/images/photos/ (JPG, ~1600×1200 for plates, ~2400×800 panorama):
- *   photo-residential.jpg   photo-commercial.jpg   photo-institutional.jpg
- *   photo-industrial.jpg    photo-interiors.jpg    photo-planning.jpg
- *   photo-panorama.jpg
- * Licensing/attribution: record each file's source in ATTRIBUTIONS.md.
+ * The site now has a real portfolio, so every imagery slot draws from real
+ * project photography first: home plates, the expertise stage, the hero
+ * cursor trail and the about panorama all use actual project images. The
+ * AI study series remains only as a graceful fallback for a category that
+ * has no published project yet.
  */
-
-const PHOTO_DIR = path.join(process.cwd(), "public", "images", "photos");
-const FILES = [
-  "photo-residential.jpg",
-  "photo-commercial.jpg",
-  "photo-institutional.jpg",
-  "photo-industrial.jpg",
-  "photo-interiors.jpg",
-  "photo-planning.jpg",
-] as const;
 
 export interface ResolvedImage {
   src: string;
   alt: string;
   width: number;
   height: number;
-  /** true → real photograph supplied by the practice; false → AI study plate */
   isPhoto: boolean;
-  /** Caption/kind label the UI must show. */
   kindLabel: string;
   n: string;
   typology: string;
   caption: string;
+  /** Project link when the plate is backed by a real project. */
+  href?: string;
   tone: "light" | "dark";
 }
 
-function exists(file: string): boolean {
-  try {
-    return fs.existsSync(path.join(PHOTO_DIR, file));
-  } catch {
-    return false;
-  }
+function firstProjectOf(typology: string): Project | undefined {
+  return getPublishedProjects().find((p) => p.typology === typology);
 }
 
-/** Resolve the six typology slots (index 0–5 matching studySeries). */
+/**
+ * One plate per expertise category, in expertiseAreas order. Backed by a
+ * real project's lead image where one exists; otherwise the AI study plate.
+ */
 export function getPlates(): ResolvedImage[] {
-  return studySeries.map((s, i) => {
-    const file = FILES[i];
-    if (file && exists(file)) {
+  return expertiseAreas.map((area, i) => {
+    const study = studySeries[i] ?? studySeries[0];
+    const n = String(i + 1).padStart(2, "0");
+    const project = firstProjectOf(area.typology);
+    const hero = project?.images[0];
+    if (project && hero) {
       return {
-        src: `/images/photos/${file}`,
-        alt: `${s.typology} — photograph from the practice`,
-        width: 1600,
-        height: 1200,
+        src: hero.src,
+        alt: hero.alt,
+        width: hero.width,
+        height: hero.height,
         isPhoto: true,
-        kindLabel: "Photograph",
-        n: s.n,
-        typology: s.typology,
-        caption: s.caption,
-        tone: s.tone,
+        kindLabel: "Project",
+        n,
+        typology: area.typology,
+        caption: project.title,
+        href: `/projects/${project.slug}`,
+        tone: "dark",
       };
     }
     return {
-      src: s.src,
-      alt: s.alt,
-      width: s.width,
-      height: s.height,
+      src: study.src,
+      alt: study.alt,
+      width: study.width,
+      height: study.height,
       isPhoto: false,
       kindLabel: "AI brand study",
-      n: s.n,
-      typology: s.typology,
-      caption: s.caption,
-      tone: s.tone,
+      n,
+      typology: area.typology,
+      caption: study.caption,
+      tone: study.tone,
     };
   });
 }
 
+/** A wide, landscape project image for the about spread; AI panorama fallback. */
 export function getPanorama() {
-  if (exists("photo-panorama.jpg")) {
-    return {
-      src: "/images/photos/photo-panorama.jpg",
-      alt: "Panoramic photograph supplied by the practice",
-      caption: panorama.caption,
-      width: panorama.width,
-      height: panorama.height,
-      isPhoto: true,
-      kindLabel: "Photograph",
-    };
+  for (const p of getPublishedProjects()) {
+    const wide = p.images.find((im) => im.width / im.height >= 1.6);
+    if (wide) {
+      return {
+        src: wide.src,
+        alt: wide.alt,
+        caption: `${p.title} — ${p.location}`,
+        width: wide.width,
+        height: wide.height,
+        isPhoto: true,
+        kindLabel: "Project",
+      };
+    }
   }
   return { ...panorama, isPhoto: false, kindLabel: "AI brand imagery — not built work" };
 }
 
-/** Sources for the hero cursor trail (client component receives these). */
+/**
+ * Hero cursor-trail sources — lightweight ~480px WebP thumbnails of project
+ * heroes (public/images/trail/), generated so the trail stays cheap to load
+ * and decode. Falls back to plate images if the thumbnails are absent.
+ */
+const TRAIL_THUMBS = [
+  "/images/trail/01.webp",
+  "/images/trail/02.webp",
+  "/images/trail/03.webp",
+  "/images/trail/04.webp",
+  "/images/trail/05.webp",
+  "/images/trail/06.webp",
+  "/images/trail/07.webp",
+  "/images/trail/08.webp",
+  "/images/trail/09.webp",
+  "/images/trail/10.webp",
+];
+
 export function getTrailImages(): { src: string; alt: string }[] {
-  return getPlates().map((p) => ({ src: p.src, alt: "" }));
+  return TRAIL_THUMBS.map((src) => ({ src, alt: "" }));
 }

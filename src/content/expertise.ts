@@ -1,55 +1,60 @@
 import type { Typology } from "./projects";
 
 /**
- * Expertise content — informational only. Items must NOT link to a
- * project filter unless at least one published project exists for that
- * typology (enforced in the Expertise page via lib/projects utilities).
- * Descriptions are DRAFT copy requiring client review (CONTENT_REQUIRED.md).
+ * Expertise content — the practice's real project categories, described from
+ * the delivered portfolio (Version 2.0). Items link to the filtered projects
+ * archive only when at least one published project exists for that category
+ * (enforced in the Expertise page via lib/projects utilities).
  */
 
 export interface ExpertiseArea {
   typology: Typology;
-  /** DRAFT — requires client review. */
   description: string;
 }
 
 export const expertiseAreas: ExpertiseArea[] = [
   {
-    typology: "Residential",
+    typology: "Railway Stations",
     description:
-      "Homes and housing shaped around how people actually live — light, ventilation, privacy and the rhythms of the household.",
+      "Airport-style multimodal station redevelopments — air-concourses, segregated arrival and departure flows, and passenger-first amenities, from Bhubaneswar and Cuttack to the Amrit Bharat stations of the Trichy Division.",
   },
   {
-    typology: "Commercial",
+    typology: "Office Buildings",
     description:
-      "Workplaces and commercial buildings planned for clarity of movement, efficient servicing and a considered public face.",
+      "Civic and administrative headquarters — smart-city command centres, tax-governance complexes and naturally ventilated, GRIHA-rated workplaces.",
   },
   {
-    typology: "Institutional",
+    typology: "Group Housing",
     description:
-      "Learning, healthcare and civic environments organised around the people they serve and the routines they support.",
+      "Integrated townships and planned housing for industry and railway personnel — livable, walkable communities with clubhouses, sports and full utility networks.",
   },
   {
-    typology: "Industrial",
+    typology: "Sports Complex",
     description:
-      "Functional industrial facilities where process, safety and expansion logic drive the plan.",
+      "Multi-sport stadia and aquatics facilities designed for competition and crowds — tracks, turf fields, Olympic pools and spectator galleries.",
   },
   {
-    typology: "Interiors",
+    typology: "Market Complex",
     description:
-      "Interior architecture continuous with the building — material, light and detail resolved as one.",
+      "Modern commercial and wholesale-market hubs planned for logistics, hygiene and natural ventilation, from retail complexes to technology-enabled fish markets.",
   },
   {
-    typology: "Master Planning",
+    typology: "Educational",
     description:
-      "Site and campus planning that sets a durable framework for phased growth.",
+      "School campuses for institutions and research establishments, organised around learning and everyday routine.",
+  },
+  {
+    typology: "Urban Development",
+    description:
+      "City-scale infrastructure and landmark elements — inter-state bus terminals and sculptural gateway arches that mark a threshold in the public realm.",
   },
 ];
 
-/** DRAFT — requires client review. */
 export const services: string[] = [
-  "Architectural design",
-  "Interior architecture",
   "Master planning",
-  "Project coordination",
+  "Architectural design",
+  "Structural engineering",
+  "MEP services design",
+  "Pre-tender costing",
+  "Landscape planning",
 ];

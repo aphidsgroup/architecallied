@@ -79,7 +79,7 @@ export function Header() {
             />
             <span
               className={cn(
-                "text-2xl lowercase leading-none tracking-wide md:text-3xl",
+                "hidden sm:inline-block text-2xl lowercase leading-none tracking-wide md:text-3xl",
                 lightText ? "text-beige" : "text-navy",
               )}
             >

@@ -17,11 +17,14 @@ export function Footer() {
           </span>
         </a>
 
+        {/* Client correction (deck slide 132): footer text scaled up. */}
         <div className="mt-20 grid gap-10 border-t border-beige/10 pt-10 md:grid-cols-12">
           {site.offices.map((office) => (
             <address key={office.label} className="not-italic md:col-span-3">
-              <h2 className="label text-gold">{office.label}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-beige-muted">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+                {office.label}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-beige md:text-lg">
                 {office.lines.map((line) => (
                   <span key={line} className="block">
                     {line}
@@ -31,29 +34,38 @@ export function Footer() {
             </address>
           ))}
           <div className="md:col-span-3">
-            <h2 className="label text-gold">Direct</h2>
-            <ul className="mt-3 space-y-1 text-sm text-beige-muted">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+              Direct
+            </h2>
+            <ul className="mt-4 space-y-2 text-base text-beige md:text-lg">
               <li>
-                <a className="inline-flex min-h-11 items-center hover:text-beige md:min-h-0" href={site.phone.mobile.href}>
+                <a className="inline-flex min-h-11 items-center hover:text-gold md:min-h-0" href={site.phone.mobile.href}>
                   {site.phone.mobile.display}
                 </a>
               </li>
               <li>
-                <a className="inline-flex min-h-11 items-center hover:text-beige md:min-h-0" href={site.phone.landline.href}>
+                <a className="inline-flex min-h-11 items-center hover:text-gold md:min-h-0" href={site.phone.landline.href}>
                   {site.phone.landline.display}
+                </a>
+              </li>
+              <li>
+                <a className="inline-flex min-h-11 items-center break-all hover:text-gold md:min-h-0" href={`mailto:${site.email}`}>
+                  {site.email}
                 </a>
               </li>
             </ul>
           </div>
           <div className="md:col-span-3">
-            <h2 className="label text-gold">Index</h2>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-gold">
+              Index
+            </h2>
             <nav aria-label="Footer">
-              <ul className="mt-3 space-y-1 text-sm">
+              <ul className="mt-4 space-y-2 text-base md:text-lg">
                 {[...nav, { label: "Privacy", href: "/privacy" }].map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="inline-flex min-h-11 items-center text-beige-muted hover:text-beige md:min-h-0"
+                      className="inline-flex min-h-11 items-center text-beige hover:text-gold md:min-h-0"
                     >
                       {item.label}
                     </Link>
@@ -64,6 +76,8 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Client correction (deck slide 132): principal-architect name removed
+            from the footer bar; only the logo and copyright line remain. */}
         <div className="mt-16 flex flex-col justify-between gap-6 border-t border-beige/10 pt-8 md:flex-row md:items-end">
           <Image
             src="/brand/logo-gold.png"
@@ -73,8 +87,7 @@ export function Footer() {
             className="h-10 w-auto object-contain object-left"
           />
           <p className="text-xs uppercase tracking-[0.2em] text-beige-muted">
-            Principal Architect — {site.principal.name}, {site.principal.qualification} · ©{" "}
-            {new Date().getFullYear()} {site.name}
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
         </div>
       </div>

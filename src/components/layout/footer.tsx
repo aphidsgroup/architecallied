@@ -13,7 +13,7 @@ export function Footer() {
       <div className="px-6 pb-10 pt-24 md:px-10">
         <a href={`mailto:${site.email}`} className="group block">
           <span className="label text-gold">Enquiries</span>
-          <span className="mt-4 block break-words font-display text-[clamp(1.75rem,5.5vw,4.5rem)] font-light leading-tight text-cream underline decoration-gold/40 decoration-1 underline-offset-8 transition-colors group-hover:decoration-gold motion-reduce:transition-none">
+          <span className="mt-4 block break-words font-display text-[clamp(1.5rem,3.5vw,3rem)] font-light leading-tight text-cream underline decoration-gold/40 decoration-1 underline-offset-8 transition-colors group-hover:decoration-gold motion-reduce:transition-none">
             {site.email}
           </span>
         </a>

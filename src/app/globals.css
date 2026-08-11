@@ -14,8 +14,8 @@
   --color-gold-ink: #7a6433;
 
   --font-sans: "Century Gothic", CenturyGothic, AppleGothic, var(--font-jost), system-ui, sans-serif;
-  /* Direction A (selected): Fraunces editorial display */
-  --font-display: var(--font-fraunces), Georgia, serif;
+  /* Century Gothic for all headings and display text too, overriding Fraunces */
+  --font-display: "Century Gothic", CenturyGothic, AppleGothic, var(--font-jost), system-ui, sans-serif;
 
   --tracking-label: 0.14em;
 }

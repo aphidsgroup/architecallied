@@ -45,7 +45,7 @@ export const site = {
     draft: true,
     tagline: "Architecture grounded in context, built to endure.",
     description:
-      "Archi-tec Allied is an architecture practice led by Principal Architect S. Ravikumar, B.Arch, working from Chennai with a branch office in Bhubaneswar. The practice approaches every commission through its context — site, climate, use and the people it serves.",
+      "Archi-tec Allied is an architecture practice working from Chennai with a branch office in Bhubaneswar. The practice approaches every commission through its context — site, climate, use and the people it serves.",
   },
   /** Until client publication permissions are confirmed. */
   clientStatement: "Client credentials are available on request.",

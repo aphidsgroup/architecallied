@@ -192,13 +192,10 @@ export default function HomePage() {
               id="principal-h"
               className="font-display text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-tight text-cream"
             >
-              {site.name} is led by{" "}
-              <em className="text-gold">{site.principal.name}</em>,{" "}
-              {site.principal.qualification}
+              {site.name} — Architecture <em className="text-gold">grounded in context</em>, built to endure.
             </SectionHeading>
             <p className="mt-8 max-w-lg text-beige-muted">
-              Practising from the head office in T. Nagar, Chennai, with a
-              branch office in Bhubaneswar, Odisha. {site.clientStatement}
+              {site.positioning.description} {site.clientStatement}
             </p>
           </div>
           <dl className="self-end text-sm md:col-span-4 md:col-start-9">

@@ -87,14 +87,35 @@ export function Header() {
             </span>
           </a>
 
+          {/* Desktop inline navigation */}
+          <nav aria-label="Primary" className="hidden items-center gap-8 md:flex">
+            {nav.map((item) => {
+              const active = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "label transition-colors",
+                    lightText ? "text-beige hover:text-gold" : "text-navy hover:text-gold-ink",
+                    active && (lightText ? "text-gold" : "text-gold-ink")
+                  )}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Mobile Explore trigger */}
           <DialogPrimitive.Trigger
             className={cn(
-              "label flex min-h-11 items-center gap-3 transition-colors",
+              "label flex min-h-11 items-center gap-3 transition-colors md:hidden",
               lightText ? "text-beige hover:text-gold" : "text-navy hover:text-gold-ink",
             )}
           >
             Explore
-            <span aria-hidden className="block h-px w-10 bg-gold" />
+            <span aria-hidden className="block h-px w-6 bg-gold" />
           </DialogPrimitive.Trigger>
         </div>
       </header>

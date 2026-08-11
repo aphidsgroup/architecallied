@@ -50,10 +50,9 @@ export default async function ProjectsPage({
 
       {all.length > 0 ? (
         <>
-          <div className="mt-14">
+          <div className="mt-14 border-y rule">
             <ProjectFilters
               filters={filters}
-              locations={locations}
               resultCount={projects.length}
             />
           </div>

@@ -1,36 +1,36 @@
 "use client";
 
 import { useCallback } from "react";
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { PROJECT_STATUSES, TYPOLOGIES } from "@/content/projects";
+import { TYPOLOGIES } from "@/content/projects";
 import type { ProjectFilterState } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
 /**
  * URL-persisted project filters. State lives entirely in the query string,
- * so back/forward, reload and shared links all work. Native <select>
- * elements keep the control fully keyboard- and screen-reader-accessible
- * with zero custom widget code (docs/design/page-specifications.md).
+ * so back/forward, reload and shared links all work. 
+ * Re-designed as a horizontal, scrollable pill category filter.
  */
 export function ProjectFilters({
   filters,
-  locations,
   resultCount,
 }: {
   filters: ProjectFilterState;
-  locations: string[];
   resultCount: number;
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const setFilter = useCallback(
-    (key: "typology" | "location" | "status", value: string) => {
+  const setTypology = useCallback(
+    (value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (value) params.set(key, value);
-      else params.delete(key);
+      if (value) params.set("typology", value);
+      else params.delete("typology");
+      // Remove other filters if any existed from previous versions
+      params.delete("location");
+      params.delete("status");
+      
       router.push(`${pathname}${params.size ? `?${params}` : ""}`, {
         scroll: false,
       });
@@ -38,67 +38,53 @@ export function ProjectFilters({
     [router, pathname, searchParams],
   );
 
-  const hasFilters = Boolean(
-    filters.typology || filters.location || filters.status,
-  );
-
-  const fields: {
-    key: "typology" | "location" | "status";
-    label: string;
-    value: string | undefined;
-    options: readonly string[];
-  }[] = [
-    { key: "typology", label: "Typology", value: filters.typology, options: TYPOLOGIES },
-    { key: "location", label: "Location", value: filters.location, options: locations },
-    { key: "status", label: "Status", value: filters.status, options: PROJECT_STATUSES },
-  ];
-
   return (
-    <div className="border-y rule py-6">
-      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div className="grid gap-6 sm:grid-cols-3 md:max-w-2xl md:flex-1">
-          {fields.map((f) => (
-            <div key={f.key} data-active={Boolean(f.value)} className="relative">
-              <label htmlFor={`filter-${f.key}`} className="label block text-ink-muted">
-                {f.label}
-              </label>
-              <select
-                id={`filter-${f.key}`}
-                value={f.value ?? ""}
-                onChange={(e) => setFilter(f.key, e.target.value)}
+    <div className="py-2">
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+        
+        {/* Scrollable Pill Container */}
+        <div className="-mx-6 overflow-x-auto px-6 pb-4 md:mx-0 md:px-0 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <ul className="flex items-center gap-3">
+            <li>
+              <button
+                onClick={() => setTypology("")}
                 className={cn(
-                  "mt-2 block min-h-11 w-full border rule bg-white px-3 py-2 text-navy",
-                  f.options.length === 0 && "text-ink-muted",
+                  "whitespace-nowrap rounded-full border px-6 py-2.5 text-sm font-medium transition-colors cursor-pointer",
+                  !filters.typology
+                    ? "bg-navy border-navy text-white"
+                    : "border-navy/20 text-navy hover:border-navy"
                 )}
-                disabled={f.options.length === 0}
               >
-                <option value="">All</option>
-                {f.options.map((o) => (
-                  <option key={o} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
-              {/* datum indicator: gold underline grows when filter active */}
-              <span aria-hidden className="filter-active-line absolute -bottom-1 left-0 block h-0.5 w-full bg-gold" />
-            </div>
-          ))}
+                All Projects
+              </button>
+            </li>
+            {TYPOLOGIES.map((typology) => (
+              <li key={typology}>
+                <button
+                  onClick={() => setTypology(typology)}
+                  className={cn(
+                    "whitespace-nowrap rounded-full border px-6 py-2.5 text-sm font-medium transition-colors cursor-pointer",
+                    filters.typology === typology
+                      ? "bg-navy border-navy text-white"
+                      : "border-navy/20 text-navy hover:border-navy"
+                  )}
+                >
+                  {typology}
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="flex items-center gap-6">
+        
+        {/* Results Count */}
+        <div className="shrink-0 pt-2 lg:pt-0">
           <p aria-live="polite" className="text-sm text-ink-muted">
             {resultCount} {resultCount === 1 ? "project" : "projects"}
           </p>
-          {hasFilters && (
-            <Link
-              href="/projects"
-              scroll={false}
-              className="label inline-flex min-h-11 items-center text-navy underline decoration-gold underline-offset-4 hover:text-ink-muted"
-            >
-              Clear all
-            </Link>
-          )}
         </div>
+
       </div>
     </div>
   );
 }
+

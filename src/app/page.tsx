@@ -75,41 +75,7 @@ export default function HomePage() {
         </svg>
       </section>
 
-      {/* THE PRACTICE, INDEXED */}
-      <section
-        aria-labelledby="index-h"
-        className="surface-dark border-t border-beige/10 bg-navy px-6 py-28 text-beige md:px-10"
-      >
-        <h2 id="index-h" className="label text-gold">
-          The practice, indexed
-        </h2>
-        <ol className="mt-10">
-          {[
-            ["01", "Selected work", `${projectCount} projects across railway stations, civic buildings, housing and public infrastructure.`, "/projects"],
-            ["02", "Expertise", "Seven categories, from station redevelopment to sports and market complexes.", "/expertise"],
-            ["03", "Practice", `Led by ${site.principal.name}, ${site.principal.qualification}. Chennai and Bhubaneswar.`, "/about"],
-            ["04", "Enquiries", "Client credentials are available on request.", "/contact"],
-          ].map(([n, title, sub, href]) => (
-            <li key={n} className="group border-b border-beige/10">
-              <Link
-                href={href}
-                className="grid items-baseline gap-2 py-8 md:grid-cols-12 md:gap-6"
-              >
-                <span className="font-display text-2xl text-gold/70 md:col-span-1">
-                  {n}
-                </span>
-                <span className="font-display text-[clamp(2rem,5vw,4rem)] font-light leading-none text-cream transition-colors group-hover:text-gold md:col-span-6">
-                  {title}
-                </span>
-                <span className="text-sm leading-relaxed text-beige-muted md:col-span-4 md:col-start-9">
-                  {sub}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ol>
 
-      </section>
 
       {/* SELECTED WORK — real projects as museum plates */}
       <section

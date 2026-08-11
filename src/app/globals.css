@@ -13,7 +13,7 @@
      Interface gold #C6A75E remains for rules/accents and text on navy. */
   --color-gold-ink: #7a6433;
 
-  --font-sans: var(--font-jost), system-ui, sans-serif;
+  --font-sans: "Century Gothic", CenturyGothic, AppleGothic, var(--font-jost), system-ui, sans-serif;
   /* Direction A (selected): Fraunces editorial display */
   --font-display: var(--font-fraunces), Georgia, serif;
 

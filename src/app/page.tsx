@@ -5,7 +5,7 @@ import { ClientMarquee } from "@/components/home/client-marquee";
 import { HeroImageTrail } from "@/components/home/hero-image-trail";
 import { PlatesSection } from "@/components/home/plates-section";
 import { ScreeningRoom } from "@/components/home/screening-room";
-import { ParallaxSection, ParallaxHeading } from "@/components/home/parallax-section";
+import { ParallaxHeading } from "@/components/home/parallax-section";
 import { site } from "@/content/site";
 import { getPublishedProjects } from "@/lib/projects";
 import { pageMetadata } from "@/lib/metadata";
@@ -19,20 +19,23 @@ export const metadata = pageMetadata({
 });
 
 /**
- * Home — Direction A: Monolithic Editorial (selected from the design lab,
- * docs/redesign/). Monumental hero with corner coordinates, museum-plate
- * project cards, approach principles, screening room and clients marquee.
- * Parallax scroll effects between sections via GSAP ScrollTrigger.
+ * Home — sticky stacking sections: each panel sticks to the top of the
+ * viewport while the next one slides up and covers it, creating a
+ * layer-on-layer depth effect as the user scrolls.
  */
 export default function HomePage() {
   const projectCount = getPublishedProjects().length;
   const trailImages = getTrailImages();
 
   return (
-    <>
-      {/* HERO — monumental staggered wordmark, corner utilities */}
-      <section className="surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-28 text-beige md:px-10 md:pt-32">
-        {/* Cursor image trail — additive overlay; hero composition unchanged */}
+    // Stacking container — each child section is sticky
+    <div className="relative">
+
+      {/* ── 1. HERO ── sticky z-10 */}
+      <section
+        style={{ zIndex: 10 }}
+        className="sticky top-0 surface-dark relative flex min-h-svh flex-col justify-center overflow-hidden bg-navy px-6 pt-28 text-beige md:px-10 md:pt-32"
+      >
         <HeroImageTrail images={trailImages} />
         <p className="pointer-events-none absolute left-6 top-24 z-10 hidden text-xs uppercase tracking-[0.2em] text-beige-muted md:left-10 lg:block">
           Est. Chennai — 13.08°N 80.27°E
@@ -56,7 +59,6 @@ export default function HomePage() {
         <p className="hero-rise hero-rise-2 relative z-10 mt-10 max-w-xl text-xl leading-relaxed text-beige md:pl-[8vw] md:text-2xl">
           {site.positioning.tagline}
         </p>
-
         <svg
           aria-hidden
           viewBox="0 0 1200 60"
@@ -74,14 +76,11 @@ export default function HomePage() {
         </svg>
       </section>
 
-      {/* SELECTED WORK — parallax on heading + cards */}
-      <ParallaxSection
-        as="section"
+      {/* ── 2. SELECTED WORK — slides over hero ── sticky z-20 */}
+      <section
+        style={{ zIndex: 20 }}
         aria-labelledby="plates-h"
-        className="bg-white text-navy"
-        speed={0.12}
-        direction="up"
-        innerClassName="px-6 py-28 md:px-10"
+        className="sticky top-0 bg-white px-6 py-28 text-navy shadow-[0_-12px_40px_rgba(0,0,0,0.18)] md:px-10"
       >
         <div className="grid gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
@@ -103,16 +102,13 @@ export default function HomePage() {
         <div className="mt-14">
           <PlatesSection />
         </div>
-      </ParallaxSection>
+      </section>
 
-      {/* APPROACH — parallax drift on the text block */}
-      <ParallaxSection
-        as="section"
+      {/* ── 3. APPROACH — slides over selected work ── sticky z-30 */}
+      <section
+        style={{ zIndex: 30 }}
         aria-labelledby="approach-h"
-        className="bg-cream text-navy"
-        speed={0.15}
-        direction="up"
-        innerClassName="px-6 py-28 md:px-10"
+        className="sticky top-0 bg-cream px-6 py-28 text-navy shadow-[0_-12px_40px_rgba(0,0,0,0.15)] md:px-10"
       >
         <div className="grid gap-12 md:grid-cols-12">
           <h2 id="approach-h" className="label self-start text-ink-muted md:col-span-2">
@@ -149,16 +145,13 @@ export default function HomePage() {
             </ul>
           </div>
         </div>
-      </ParallaxSection>
+      </section>
 
-      {/* SCREENING ROOM — parallax on the heading block */}
-      <ParallaxSection
-        as="section"
+      {/* ── 4. SCREENING ROOM — slides over approach ── sticky z-40 */}
+      <section
+        style={{ zIndex: 40 }}
         aria-labelledby="films-h"
-        className="surface-dark bg-navy text-beige"
-        speed={0.12}
-        direction="up"
-        innerClassName="px-6 py-28 md:px-10"
+        className="sticky top-0 surface-dark bg-navy px-6 py-28 text-beige shadow-[0_-12px_40px_rgba(0,0,0,0.25)] md:px-10"
       >
         <p className="label text-gold">Project films</p>
         <ParallaxHeading>
@@ -172,16 +165,13 @@ export default function HomePage() {
         <div className="mt-14">
           <ScreeningRoom />
         </div>
-      </ParallaxSection>
+      </section>
 
-      {/* OUR CLIENTS — running logo rows (R→L / L→R / R→L) */}
-      <ParallaxSection
-        as="section"
+      {/* ── 5. CLIENTS — slides over screening room ── sticky z-50 */}
+      <section
+        style={{ zIndex: 50 }}
         aria-labelledby="clients-h"
-        className="bg-cream text-navy"
-        speed={0.1}
-        direction="up"
-        innerClassName="px-6 py-28 md:px-10"
+        className="sticky top-0 bg-cream px-6 py-28 text-navy shadow-[0_-12px_40px_rgba(0,0,0,0.15)] md:px-10"
       >
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div>
@@ -200,16 +190,13 @@ export default function HomePage() {
         <div className="mt-12">
           <ClientMarquee />
         </div>
-      </ParallaxSection>
+      </section>
 
-      {/* PRINCIPAL — integrated editorial statement */}
-      <ParallaxSection
-        as="section"
+      {/* ── 6. PRINCIPAL — final layer, slides over clients ── sticky z-60 */}
+      <section
+        style={{ zIndex: 60 }}
         aria-labelledby="principal-h"
-        className="surface-dark bg-navy text-beige"
-        speed={0.15}
-        direction="up"
-        innerClassName="px-6 py-28 md:px-10"
+        className="sticky top-0 surface-dark bg-navy px-6 py-28 text-beige shadow-[0_-12px_40px_rgba(0,0,0,0.25)] md:px-10"
       >
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
@@ -218,7 +205,8 @@ export default function HomePage() {
                 id="principal-h"
                 className="font-display text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-tight text-cream"
               >
-                {site.name} — Architecture <em className="text-gold">grounded in context</em>, built to endure.
+                {site.name} — Architecture{" "}
+                <em className="text-gold">grounded in context</em>, built to endure.
               </SectionHeading>
             </ParallaxHeading>
             <p className="mt-8 max-w-lg text-beige-muted">
@@ -235,7 +223,8 @@ export default function HomePage() {
           </dl>
         </div>
         <DatumSweep className="mt-20 h-8 w-full max-w-xl" />
-      </ParallaxSection>
-    </>
+      </section>
+
+    </div>
   );
 }

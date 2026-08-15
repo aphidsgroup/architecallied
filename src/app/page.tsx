@@ -5,6 +5,7 @@ import { ClientMarquee } from "@/components/home/client-marquee";
 import { HeroImageTrail } from "@/components/home/hero-image-trail";
 import { PlatesSection } from "@/components/home/plates-section";
 import { ScreeningRoom } from "@/components/home/screening-room";
+import { ParallaxSection, ParallaxHeading } from "@/components/home/parallax-section";
 import { site } from "@/content/site";
 import { getPublishedProjects } from "@/lib/projects";
 import { pageMetadata } from "@/lib/metadata";
@@ -19,11 +20,9 @@ export const metadata = pageMetadata({
 
 /**
  * Home — Direction A: Monolithic Editorial (selected from the design lab,
- * docs/redesign/). Monumental Fraunces hero with corner coordinates, the
- * practice presented as a vertical index, an art-book approach spread, an
- * integrated principal statement; the global colophon footer concludes the
- * page with the monumental email. Draft copy flags live in src/content.
- * City coordinates are public, city-level geographic facts.
+ * docs/redesign/). Monumental hero with corner coordinates, museum-plate
+ * project cards, approach principles, screening room and clients marquee.
+ * Parallax scroll effects between sections via GSAP ScrollTrigger.
  */
 export default function HomePage() {
   const projectCount = getPublishedProjects().length;
@@ -75,23 +74,27 @@ export default function HomePage() {
         </svg>
       </section>
 
-
-
-      {/* SELECTED WORK — real projects as museum plates */}
-      <section
+      {/* SELECTED WORK — parallax on heading + cards */}
+      <ParallaxSection
+        as="section"
         aria-labelledby="plates-h"
-        className="bg-white px-6 py-28 text-navy md:px-10"
+        className="bg-white text-navy"
+        speed={0.12}
+        direction="up"
+        innerClassName="px-6 py-28 md:px-10"
       >
         <div className="grid gap-6 md:grid-cols-12">
           <div className="md:col-span-7">
             <p className="label text-ink-muted">Selected work</p>
-            <SectionHeading
-              id="plates-h"
-              className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
-            >
-              Building the public realm across{" "}
-              <em className="text-gold-ink">India</em>
-            </SectionHeading>
+            <ParallaxHeading>
+              <SectionHeading
+                id="plates-h"
+                className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
+              >
+                Building the public realm across{" "}
+                <em className="text-gold-ink">India</em>
+              </SectionHeading>
+            </ParallaxHeading>
           </div>
           <p className="label content-end pb-2 text-gold-ink md:col-span-4 md:col-start-9 md:text-right">
             From the practice portfolio
@@ -100,26 +103,32 @@ export default function HomePage() {
         <div className="mt-14">
           <PlatesSection />
         </div>
-      </section>
+      </ParallaxSection>
 
-      {/* APPROACH — art-book spread on cream */}
-      <section
+      {/* APPROACH — parallax drift on the text block */}
+      <ParallaxSection
+        as="section"
         aria-labelledby="approach-h"
-        className="bg-cream px-6 py-28 text-navy md:px-10"
+        className="bg-cream text-navy"
+        speed={0.15}
+        direction="up"
+        innerClassName="px-6 py-28 md:px-10"
       >
         <div className="grid gap-12 md:grid-cols-12">
           <h2 id="approach-h" className="label self-start text-ink-muted md:col-span-2">
             Approach
           </h2>
           <div className="md:col-span-9 md:col-start-4">
-            <SectionHeading className="font-display text-[clamp(1.75rem,3.6vw,3.25rem)] font-light leading-[1.25]">
-              Every site brings its own climate, street and habits of use.{" "}
-              <em className="text-gold-ink">
-                The design grows from what is already there
-              </em>{" "}
-              — organised simply, built to age well, and carried with the same
-              care from first drawing to final handover.
-            </SectionHeading>
+            <ParallaxHeading>
+              <SectionHeading className="font-display text-[clamp(1.75rem,3.6vw,3.25rem)] font-light leading-[1.25]">
+                Every site brings its own climate, street and habits of use.{" "}
+                <em className="text-gold-ink">
+                  The design grows from what is already there
+                </em>{" "}
+                — organised simply, built to age well, and carried with the same
+                care from first drawing to final handover.
+              </SectionHeading>
+            </ParallaxHeading>
             <ul className="mt-16 grid gap-x-10 gap-y-8 sm:grid-cols-2">
               {[
                 ["Context first", "Site, climate and use before form."],
@@ -140,60 +149,78 @@ export default function HomePage() {
             </ul>
           </div>
         </div>
-      </section>
+      </ParallaxSection>
 
-      {/* SCREENING ROOM — film index controls the stage (A24 pattern via Mobbin) */}
-      <section
+      {/* SCREENING ROOM — parallax on the heading block */}
+      <ParallaxSection
+        as="section"
         aria-labelledby="films-h"
-        className="surface-dark bg-navy px-6 py-28 text-beige md:px-10"
+        className="surface-dark bg-navy text-beige"
+        speed={0.12}
+        direction="up"
+        innerClassName="px-6 py-28 md:px-10"
       >
         <p className="label text-gold">Project films</p>
-        <SectionHeading
-          id="films-h"
-          className="mt-4 max-w-2xl font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight text-cream"
-        >
-          The work, <em className="text-gold">in motion</em>
-        </SectionHeading>
+        <ParallaxHeading>
+          <SectionHeading
+            id="films-h"
+            className="mt-4 max-w-2xl font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight text-cream"
+          >
+            The work, <em className="text-gold">in motion</em>
+          </SectionHeading>
+        </ParallaxHeading>
         <div className="mt-14">
           <ScreeningRoom />
         </div>
-      </section>
+      </ParallaxSection>
 
       {/* OUR CLIENTS — running logo rows (R→L / L→R / R→L) */}
-      <section
+      <ParallaxSection
+        as="section"
         aria-labelledby="clients-h"
-        className="bg-cream px-6 py-28 text-navy md:px-10"
+        className="bg-cream text-navy"
+        speed={0.1}
+        direction="up"
+        innerClassName="px-6 py-28 md:px-10"
       >
         <div className="flex flex-wrap items-baseline justify-between gap-4">
           <div>
             <p className="label text-ink-muted">Our clients</p>
-            <SectionHeading
-              id="clients-h"
-              className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
-            >
-              Trusted across institutions and industry
-            </SectionHeading>
+            <ParallaxHeading>
+              <SectionHeading
+                id="clients-h"
+                className="mt-4 font-display text-[clamp(1.9rem,4vw,3.25rem)] font-light leading-tight"
+              >
+                Trusted across institutions and industry
+              </SectionHeading>
+            </ParallaxHeading>
           </div>
           <p className="label text-gold-ink">From the practice archive</p>
         </div>
         <div className="mt-12">
           <ClientMarquee />
         </div>
-      </section>
+      </ParallaxSection>
 
       {/* PRINCIPAL — integrated editorial statement */}
-      <section
+      <ParallaxSection
+        as="section"
         aria-labelledby="principal-h"
-        className="surface-dark bg-navy px-6 py-28 text-beige md:px-10"
+        className="surface-dark bg-navy text-beige"
+        speed={0.15}
+        direction="up"
+        innerClassName="px-6 py-28 md:px-10"
       >
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-7">
-            <SectionHeading
-              id="principal-h"
-              className="font-display text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-tight text-cream"
-            >
-              {site.name} — Architecture <em className="text-gold">grounded in context</em>, built to endure.
-            </SectionHeading>
+            <ParallaxHeading>
+              <SectionHeading
+                id="principal-h"
+                className="font-display text-[clamp(2rem,4.5vw,3.75rem)] font-light leading-tight text-cream"
+              >
+                {site.name} — Architecture <em className="text-gold">grounded in context</em>, built to endure.
+              </SectionHeading>
+            </ParallaxHeading>
             <p className="mt-8 max-w-lg text-beige-muted">
               {site.positioning.description} {site.clientStatement}
             </p>
@@ -208,7 +235,7 @@ export default function HomePage() {
           </dl>
         </div>
         <DatumSweep className="mt-20 h-8 w-full max-w-xl" />
-      </section>
+      </ParallaxSection>
     </>
   );
 }
